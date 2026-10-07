@@ -30,6 +30,9 @@ const nextAuth = NextAuth({
   callbacks: {
     async jwt({ token, account }) {
       if (account) {
+        // Auth.js assigns user.id (and token.sub) a random local UUID.
+        // The verified OIDC subject is retained on the provider account.
+        token.wiseSubject = account.providerAccountId;
         token.accessToken = account.access_token;
         token.accessExpiresAt = account.expires_at ?? Math.floor(Date.now() / 1000) + 3600;
       }
@@ -38,7 +41,7 @@ const nextAuth = NextAuth({
       return token;
     },
     async session({ session, token }) {
-      const user = await verifyMembership(typeof token.accessToken === "string" ? token.accessToken : undefined, typeof token.accessExpiresAt === "number" ? token.accessExpiresAt : undefined, token.sub,
+      const user = await verifyMembership(typeof token.accessToken === "string" ? token.accessToken : undefined, typeof token.accessExpiresAt === "number" ? token.accessExpiresAt : undefined, typeof token.wiseSubject === "string" ? token.wiseSubject : undefined,
         process.env.WISE_AUTH_USERINFO_URL || "https://www.wise-invest.org/oauth/userinfo");
       const sessionUser = user ?? { id: "", wiseUserId: "", membershipTier: "MEMBER", name: null, email: null, image: null };
       // Access token is server-only, never returned by /api/auth/session.

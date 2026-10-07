@@ -68,3 +68,10 @@ test('fresh downgrade or unavailable membership removes article access',async()=
   assert.equal(canReadDiscussion('earnings-quality',user?.membershipTier??null),allowed);
  }
 });
+
+test('login destinations preserve reading position and cannot loop into auth endpoints',()=>{
+ const {sanitizeLoginDestination}=require('../.auth-test/wise-id.js');
+ for(const url of ['/login','/login?callbackUrl=/chat','/auth/login','/api/auth/signin/wise','/%61uth/login','https://evil.test','//evil.test','/%zz'])assert.equal(sanitizeLoginDestination(url),'/');
+ assert.equal(sanitizeLoginDestination('/chat/earnings-quality'),'/chat/earnings-quality');
+ assert.equal(sanitizeLoginDestination('/chat#principles'),'/chat#principles');
+});

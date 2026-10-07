@@ -120,6 +120,14 @@ export function normalizeMembershipTier(value: unknown): WiseMembershipTier {
   return "MEMBER";
 }
 
+export function sanitizeLoginDestination(value: string | undefined) {
+  const destination = sanitizeInternalCallbackUrl(value);
+  let path: string;
+  try { path = decodeURIComponent(destination.split(/[?#]/)[0]); }
+  catch { return "/"; }
+  return /^\/(?:login|api|auth)(?:\/|$)/.test(path) ? "/" : destination;
+}
+
 export function mapWiseProfileToUser(profile: WiseIdProfile) {
   const subject = optionalString(profile.sub) ?? optionalString(profile.wise_user_id);
   if (!subject) throw new Error("Wise ID did not return a subject identifier.");
