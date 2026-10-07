@@ -1,0 +1,5 @@
+module.exports = {
+  async redirects() {
+    return ["/login", "/register", "/account/:path*", "/articles/:path*", "/perk/:path*", "/point/:path*", "/website"].map(source => ({source, destination: `https://www.wise-invest.org${source}`, permanent: false}));
+  }
+};
