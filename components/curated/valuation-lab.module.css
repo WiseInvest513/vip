@@ -1,0 +1,57 @@
+.lab {
+  --lab-ink: var(--vip-text, #181e2a);
+  --lab-muted: var(--vip-muted, #657083);
+  --lab-gold: var(--vip-gold, #99722a);
+  --lab-line: var(--vip-line, #e5e8ee);
+  --lab-surface: var(--vip-soft, #f5f6f8);
+  margin: 36px 0;
+  padding: 22px 28px 19px;
+  border: 1px solid var(--lab-line);
+  border-radius: 18px;
+  background: var(--vip-bg, #fff);
+  color: var(--lab-ink);
+  font-family: inherit;
+  box-shadow: 0 8px 22px -18px #23354d35;
+}
+.heading { display: flex; gap: 18px; align-items: center; justify-content: space-between; }
+.heading h3 { margin: 0; font-family: inherit; font-size: 20px; font-weight: 650; line-height: 1.5; letter-spacing: -.025em; }
+.badge { flex: none; border: 1px solid var(--lab-line); border-radius: 5px; padding: 5px 10px; background: var(--lab-surface); color: var(--lab-muted); font-size: 10px; }
+.disclaimer { margin: 4px 0 0; color: var(--lab-muted); font-size: 12px; line-height: 1.7; }
+.presets { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; margin: 10px 0 14px; }
+.presets button { min-height: 36px; padding: 7px 12px; border: 1px solid var(--lab-line); border-radius: 9px; background: var(--lab-surface); color: var(--lab-ink); font-family: inherit; font-size: 12px; font-weight: 550; cursor: pointer; }
+.presets button:hover { border-color: var(--lab-gold); }
+.presets button[aria-pressed="true"] { border-color: var(--vip-accent, #f1cc55); color: #181e2a; background: var(--vip-accent, #f1cc55); font-weight: 650; }
+.presets .reset { padding-left: 9px; padding-right: 9px; border-color: transparent; background: transparent; text-decoration: underline; text-underline-offset: 4px; }
+.lab :is(button, input):focus-visible { outline: 2px solid var(--lab-gold); outline-offset: 4px; }
+.workspace { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+.controls { display: grid; gap: 14px; align-content: start; }
+.control label { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; font-size: 13px; line-height: 1.5; }
+.control output { color: var(--lab-gold); font-variant-numeric: tabular-nums; font-size: 18px; font-weight: 600; }
+.control output span { font-size: 12px; font-weight: 400; }
+.control input { display: block; width: 100%; min-height: 24px; margin: 4px 0 0; accent-color: var(--lab-gold); cursor: pointer; }
+.result { display: flex; flex-direction: column; justify-content: space-between; padding-left: 24px; border-left: 1px solid var(--lab-line); }
+.prices { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.prices span, .changes span { display: block; color: var(--lab-muted); font-size: 11px; line-height: 1.6; }
+.prices strong { display: block; margin-top: 4px; font-family: inherit; font-size: 30px; line-height: 1.15; font-weight: 650; font-variant-numeric: tabular-nums; letter-spacing: -.035em; }
+.prices > div:last-child strong { color: var(--lab-gold); }
+.prices small { font-size: 12px; font-family: inherit; }
+.prices p { margin: 6px 0 0; font-size: 11px; color: var(--lab-muted); line-height: 1.6; }
+.changes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; padding-top: 9px; border-top: 1px solid var(--lab-line); }
+.changes strong { display: block; margin-top: 3px; font-size: 14px; line-height: 1.5; font-weight: 500; font-variant-numeric: tabular-nums; }
+.assumption { margin: 12px 0 0; color: var(--lab-muted); font-size: 11px; line-height: 1.8; }
+:global(.dark) .lab { --lab-ink: var(--vip-text, #f3f5f8); --lab-muted: var(--vip-muted, #a8b3c5); --lab-gold: var(--vip-gold, #d8b772); --lab-line: var(--vip-line, #2c3649); --lab-surface: var(--vip-soft, #192231); background: var(--vip-bg, #0f172a); }
+@media (max-width: 650px) {
+  .lab { margin: 28px 0; padding: 22px 18px; border-radius: 18px; }
+  .heading { display: block; }
+  .heading h3 { font-size: 19px; }
+  .badge { display: none; }
+  .workspace { grid-template-columns: 1fr; gap: 21px; }
+  .controls { gap: 15px; }
+  .control input { min-height: 32px; }
+  .result { border-left: 0; padding: 19px 0 0; border-top: 1px solid var(--lab-line); }
+  .prices strong { font-size: 35px; }
+  .changes { margin-top: 16px; padding-top: 14px; }
+  .presets { gap: 5px; }
+  .presets button { min-height: 40px; padding-left: 9px; padding-right: 9px; font-size: 11px; }
+  .assumption { margin-top: 18px; }
+}

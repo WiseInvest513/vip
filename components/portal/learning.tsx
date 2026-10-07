@@ -1,8 +1,39 @@
 "use client";
-import {useState} from "react";
-import Link from "next/link";
-import {ArrowRight,ArrowUpRight,BookOpen,FileText,TrendingUp} from "lucide-react";
-import s from "./portal.module.css";
-const paths=[{title:"投资基础",description:"建立对市场、行业和商业的基本认知，理解投资的底层逻辑。",steps:["认识资产与风险","区分价格与价值","写下自己的研究问题"],icon:BookOpen},{title:"公司研究",description:"学习如何分析一家公司，从商业模式、财务到竞争优势。",steps:["理解商业模式","阅读财报与现金流","检验竞争优势"],icon:FileText},{title:"跟踪与复盘",description:"建立自己的跟踪体系，在实践中不断总结和提升。",steps:["记录最初的判断","跟踪条件与证据的变化","复盘过程而不只看结果"],icon:TrendingUp}];
-const resources={"推荐书籍":[{title:"投资基础书单",text:"将按入门、公司研究与投资心理整理书籍，附阅读顺序与讨论问题。书目正在整理。",href:"",label:""},{title:"一起读，留下自己的理解",text:"后续在这里汇总读书笔记与相关讨论。仅提供合法来源及书籍介绍。",href:"",label:""}],"研究网站":[{title:"Wise CHAIN",text:"围绕产业、公司与关键事件，延伸自己的研究。",href:"https://chain.wise-invest.org",label:"打开网站"},{title:"Wise 主站",text:"查看已有文章、教程与公开资料。",href:"https://www.wise-invest.org",label:"打开网站"}],"参考资料":[{title:"建立公司研究框架",text:"从商业模式开始，练习记录证据、假设与待解问题。",href:"/chat/research-framework",label:"阅读示例"},{title:"财报阅读的起点",text:"带着问题阅读财报，把收入、利润与现金流联系起来。",href:"/chat/reading-earnings",label:"阅读示例"}]};
-export function Learning(){const[selected,setSelected]=useState<number|null>(null);const[tab,setTab]=useState<keyof typeof resources>("推荐书籍");return <><div className={s.paths}>{paths.map((p,i)=><button data-reveal key={p.title} className={s.path} aria-pressed={selected===i} aria-expanded={selected===i} aria-controls="path-detail" onClick={()=>setSelected(selected===i?null:i)}><span className={s.pathNumber}>{String(i+1).padStart(2,"0")}<p.icon size={21}/></span><h3>{p.title}</h3><p>{p.description}</p><ArrowRight size={18}/></button>)}</div>{selected!==null&&<div id="path-detail" className={s.pathDetail} aria-live="polite"><h3>{paths[selected].title} · 从这三步开始</h3><ol>{paths[selected].steps.map(step=><li key={step}>{step}</li>)}</ol><p className={s.note}>学习路径规划示例，具体课程与资料将陆续补充。</p></div>}<div className={s.tabs} aria-label="资料分类">{(Object.keys(resources) as (keyof typeof resources)[]).map(t=><button key={t} onClick={()=>setTab(t)} aria-pressed={tab===t}>{t}</button>)}</div><div aria-live="polite">{resources[tab].map(r=><article className={s.resource} key={r.title}><div><h3>{r.title}</h3><p>{r.text}</p></div>{r.href&&<Link href={r.href} {...(r.href.startsWith("https")?{target:"_blank",rel:"noopener noreferrer"}:{})}>{r.label}{r.href.startsWith("https")?<ArrowUpRight size={17}/>:<ArrowRight size={17}/>}</Link>}</article>)}</div></>}
+
+import { useState } from "react";
+import { ArrowUpRight, Search, X, ChevronDown } from "lucide-react";
+import { resources, type ResourceCategory } from "@/lib/portal/resources";
+import s from "./resources.module.css";
+
+const categories: ("全部" | ResourceCategory)[] = ["全部", "研究工具", "数据网站", "官方资料"];
+
+export function Learning() {
+  const [category, setCategory] = useState<(typeof categories)[number]>("全部");
+  const [query, setQuery] = useState("");
+  const search = query.trim().toLocaleLowerCase();
+  const filtered = resources.filter(resource =>
+    (category === "全部" || resource.category === category) &&
+    `${resource.title} ${resource.description} ${resource.useCase} ${resource.start}`.toLocaleLowerCase().includes(search),
+  );
+
+  return <div className={s.library}>
+    <div className={s.controls}>
+      <div className={s.categories} role="group" aria-label="资源分类">
+        {categories.map(name => <button type="button" key={name} aria-pressed={category === name} onClick={() => setCategory(name)}>{name}</button>)}
+      </div>
+      <label className={s.search}><Search size={17} aria-hidden="true" /><input type="search" aria-label="搜索资料与工具" placeholder="搜索名称或用途" value={query} onChange={event => setQuery(event.target.value)} />{query ? <button type="button" aria-label="清除搜索" onClick={() => setQuery("")}><X size={16} /></button> : null}</label>
+    </div>
+    <p className={s.count} role="status">{filtered.length} 项资源 · 按用途查找，直接前往来源</p>
+    <div className={s.grid}>
+      {filtered.map(resource => <article key={resource.id} className={s.card}>
+        <div className={s.meta}><span>{resource.category}</span><span>{resource.language}</span></div>
+        <h3>{resource.title}</h3>
+        <p className={s.description}>{resource.description}</p>
+        <div className={s.useCase}><span>什么时候用</span><p>{resource.useCase}</p></div>
+        <details className={s.guide}><summary>从哪里开始<ChevronDown size={14} aria-hidden="true" /></summary><p>{resource.start}</p></details>
+        <div className={s.bottom}><span>{resource.source}</span><a href={resource.href} target="_blank" rel="noopener noreferrer" aria-label={`打开 ${resource.title}（新窗口）`}>打开资源<ArrowUpRight size={16} aria-hidden="true" /></a></div>
+      </article>)}
+      {filtered.length === 0 ? <div className={s.empty}><h3>没有找到匹配的资源</h3><p>试试“财报”“公司”或“宏观”，也可以查看全部资源。</p><button type="button" onClick={() => { setQuery(""); setCategory("全部"); }}>查看全部资源</button></div> : null}
+    </div>
+  </div>;
+}
