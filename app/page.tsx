@@ -1,9 +1,49 @@
 import Link from "next/link";
-import Image from "next/image";
-import {ArrowRight} from "lucide-react";
-import {AmbientSurface} from "./vip/ambient-surface";
-import {Hero,Footer} from "@/components/portal/shared";
-import {Motion} from "@/components/portal/motion";
-import s from "@/components/portal/portal.module.css";
-export const metadata={title:"Wise VIP · 讨论、学习与持续积累",description:"把有价值的交流整理成可阅读的讨论与学习资料，和 Wise 一起建立自己的研究体系。",alternates:{canonical:"/"}};
-export default function Home(){return <main className={s.page}><Motion><Hero title={<>一起讨论，持续学习。<br/>让每一次判断，<br/>都有所积累。</>} description="从有价值的交流，到可以反复阅读的内容，建立自己的投资研究体系。" action="浏览精选讨论" href="/chat" image="/images/portal/chat-hero.png" secondary/><AmbientSurface className={s.surface}><section className={s.section}><h2>交流之后，还有值得留下的东西。</h2><p className={s.intro}>当下的问题一起聊，值得回看的内容慢慢积累。</p><div className={s.homeCards}>{[{title:"精选讨论",text:"把群里的观点、依据与后续跟踪整理在一起。先看摘要，再深入理解判断的过程。",href:"/chat",image:"/images/portal/chat-hero.png",action:"浏览讨论"},{title:"学习资料",text:"从投资基础到公司研究，用学习路径串起书籍、网站与参考资料。",href:"/learn",image:"/images/portal/learn-hero.png",action:"开始学习"}].map(c=><article data-reveal className={s.homeCard} key={c.title}><div className={s.homeMedia}><Image src={c.image} alt="" fill sizes="(max-width:760px) 100vw, 50vw"/></div><div className={s.homeCopy}><h3>{c.title}</h3><p>{c.text}</p><Link href={c.href}>{c.action}<ArrowRight size={17}/></Link></div></article>)}</div></section><section className={s.section}><h2>从这里开始</h2><div className={s.steps}>{[["阅读公开内容","先看讨论与资料，了解我们关注的问题。"],["建立学习路径","按自己的基础与节奏，逐步积累研究方法。"],["加入深入交流","了解 VIP 权益与加入方式，再决定是否同行。"]].map(([title,text],i)=><div data-reveal key={title}><span>0{i+1}</span><h3>{title}</h3><p>{text}</p></div>)}</div><div className={s.actions}><Link className={s.primary} href="/join">了解加入方式<ArrowRight size={18}/></Link></div></section></AmbientSurface></Motion><Footer/></main>}
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { HeroScene } from "@/components/home/hero-scene";
+import styles from "@/components/home/home.module.css";
+
+export const metadata = {
+  title: "Wise VIP · 把认知，变成长期的复利",
+  description: "有价值的讨论，系统的学习，值得反复回看的思考。和 Wise 一起，持续积累研究与学习。",
+  alternates: { canonical: "/" },
+};
+
+export default function Home() {
+  return (
+    <main className={styles.home}>
+      <HeroScene>
+        <div className={styles.copy}>
+          <h1 id="home-title"><span>把认知，</span><span>变成长期的<em>复利</em>。</span></h1>
+          <p className={styles.description}><span>有价值的讨论，系统的学习，</span><span>值得反复回看的思考。</span></p>
+          <div className={styles.actions}>
+            <Link className={styles.primary} href="#explore">探索 VIP 内容<ArrowRight size={17} /></Link>
+            <Link className={styles.secondary} href="/join">了解加入方式<ArrowUpRight size={16} /></Link>
+          </div>
+        </div>
+      </HeroScene>
+      <section id="explore" className={styles.content} aria-labelledby="explore-title">
+        <h2 id="explore-title" className={styles.sectionHeading}><span>让每一次交流，</span><span>都留下价值。</span></h2>
+        <p className={styles.sectionIntro}>从当下的讨论，走向持续积累的研究与学习。</p>
+        <div className={styles.entries}>
+          <article className={styles.entry}>
+            <span className={styles.number}>01</span>
+            <h3>精选讨论</h3>
+            <p>梳理观点、依据与后续变化，<br />回看每一次判断的过程。</p>
+            <Link className={styles.entryLink} href="/chat">浏览讨论<ArrowRight size={18} /></Link>
+          </article>
+          <article className={styles.entry}>
+            <span className={styles.number}>02</span>
+            <h3>学习资料</h3>
+            <p>用学习路径串起书籍、网站与参考资料，建立自己的研究方法。</p>
+            <Link className={styles.entryLink} href="/learn">开始学习<ArrowRight size={18} /></Link>
+          </article>
+        </div>
+        <footer className={styles.footer}>
+          <span>认真讨论，持续积累。</span>
+          <Link href="/join">加入 Wise VIP<ArrowRight size={17} /></Link>
+        </footer>
+      </section>
+    </main>
+  );
+}
