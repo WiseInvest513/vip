@@ -59,3 +59,16 @@
 :global(.dark) .path[aria-pressed=true]{background:#302d26;border-color:#ad8b50}
 :global(.dark) .loginPage{background:radial-gradient(ellipse at 50% 25%,#29291f,transparent 65%)}
 :global(.dark) .loginCard h1{color:#e6e7ec}:global(.dark) .loginCard p{color:#a0aaba}
+
+/* Login is outside .page: give its primary action independent, explicit colors. */
+.loginForm{width:min(100%,340px);margin:4px 0}
+.loginSubmit{display:flex;align-items:center;justify-content:center;gap:18px;width:100%;min-height:58px;padding:16px 24px;border:1px solid #96702f;border-radius:12px;background:linear-gradient(110deg,#cbaa65,#bc9650);color:#211a0e;font-size:16px;font-weight:700;box-shadow:0 7px 22px #98732928,inset 0 1px 0 #ffffff40;transition:transform .2s,box-shadow .2s,filter .2s}
+.loginSubmit:hover:not(:disabled){filter:brightness(1.06);transform:translateY(-2px);box-shadow:0 10px 26px #98732938}
+.loginSubmit:active:not(:disabled){transform:translateY(0)}
+.loginSubmit:focus-visible{outline:3px solid #8d682a;outline-offset:5px}
+.loginCard .loginSubmit:disabled{cursor:wait;opacity:.8}
+.loginSpinner{animation:login-spin 1s linear infinite}
+:global(.dark) .loginSubmit{background:linear-gradient(110deg,#dec184,#cbaa65);border-color:#dfc78e;color:#211a0e}
+:global(.dark) .loginSubmit:focus-visible{outline-color:#efdaac}
+@keyframes login-spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.loginSubmit{transition:none}.loginSpinner{animation:none}}
