@@ -14,3 +14,48 @@
 @media(max-width:1000px){.editorialHeader{width:calc(100% - 64px)}.editorialHeader nav{gap:24px}.editorialHeader .logo{font-size:19px}}
 @media(max-width:760px){.editorialHeader{width:calc(100% - 40px);padding:18px 0 0;height:auto;min-height:100px}.editorialHeader nav{gap:12px}.editorialHeader nav a[aria-current]:after{bottom:2px}.editorialHeader .login{font-size:12px}.editorialHeader .logo{font-size:18px}}
 @media(min-width:761px){.editorialHeader nav{position:absolute;left:50%;top:0;transform:translateX(-50%)}.editorialHeader .login{margin-left:auto}}
+
+.brandIcon{display:block;width:36px;height:36px;object-fit:contain;flex-shrink:0}
+@media(max-width:760px){.brandIcon{width:32px;height:32px}}
+
+.account {display:flex;align-items:center;gap:14px;font-size:13px;color:var(--muted,#748094)}
+.account a {display:flex;align-items:center;gap:8px;max-width:200px;overflow:hidden;white-space:nowrap}
+.account span {color:#976e29;font-size:11px;white-space:nowrap}
+.account button {background:none;border:0;color:inherit;cursor:pointer;font:inherit}
+.loginPage {min-height:calc(100vh - 72px);display:grid;place-items:center;padding:60px 24px;background:radial-gradient(ellipse at 50% 25%,#faf5e9,transparent 65%)}
+.loginCard {text-align:center;max-width:580px;padding:50px 25px;display:flex;flex-direction:column;align-items:center;gap:24px}
+.loginCard h1 {font-family:'Songti SC','STSong',serif;font-size:clamp(28px,5vw,42px);font-weight:500;letter-spacing:-1px;color:#171c27}
+.loginCard p {line-height:1.9;color:#748094}
+.loginCard small {color:#9199a6}
+.loginCard > a {font-size:14px;color:#976e29}
+.loginCard button {cursor:pointer}
+@media(max-width:640px){.account{gap:8px;font-size:12px}.account a{max-width:115px}.account span{display:none}}
+
+/* Shared navigation controls, styled to match the editorial masthead. */
+.headerTools{display:flex;align-items:center;gap:12px;margin-left:auto;flex-shrink:0;font-family:Arial,"PingFang SC",sans-serif}
+.themeToggle,.mainSite,.loginButton{height:36px;display:inline-flex;align-items:center;justify-content:center;gap:6px;border-radius:50px;font-size:12px;white-space:nowrap;color:var(--ink);transition:background .2s,border-color .2s}
+.themeToggle{width:36px;cursor:pointer}.themeToggle:hover,.mainSite:hover{background:#a9863210}.mainSite{padding:0 8px;color:var(--muted)}
+.loginButton{border:1px solid #b9954e55;background:#ffffff66;padding:0 14px;color:var(--gold)}.loginButton:hover{background:#b9954e16}
+.sun{display:none}:global(.dark) .sun{display:block}:global(.dark) .moon{display:none}
+.header :is(button,a):focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+.accountRoot{position:relative}.accountTrigger{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:24px;padding:4px 10px 4px 4px;background:#ffffff99;cursor:pointer;color:var(--ink)}
+.avatar{width:30px;height:30px;flex-shrink:0;display:grid;place-items:center;background:#b9954e18;color:var(--gold);border-radius:50%;overflow:hidden}.avatar img{width:100%;height:100%;object-fit:cover}
+.accountCopy{display:flex;flex-direction:column;text-align:left;font-size:12px;line-height:1.4}.accountCopy small{font-size:10px;color:var(--gold)}
+.accountPanel{position:absolute;right:0;top:calc(100% + 12px);width:230px;z-index:50;padding:8px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 15px 50px #17203218;color:var(--ink);font-size:13px}
+.accountPanel p{padding:12px;overflow-wrap:anywhere}.accountPanel small{display:block;color:var(--muted);font-size:11px;margin-top:5px}.accountPanel a,.accountPanel button{width:100%;display:flex;align-items:center;justify-content:space-between;padding:11px 12px;border-radius:9px;text-align:left}.accountPanel a:hover,.accountPanel button:hover{background:#b9954e10}.accountPanel form{border-top:1px solid var(--line);padding-top:6px;margin-top:5px}.accountPanel button{justify-content:flex-start;gap:9px;color:var(--muted);cursor:pointer}
+@media(min-width:761px){.editorialHeader nav{position:static;transform:none;margin-left:auto;margin-right:auto}.header,.editorialHeader{gap:24px}.editorialHeader nav{gap:26px}}
+@media(min-width:761px) and (max-width:1000px){.header,.editorialHeader{gap:14px}.header nav,.editorialHeader nav{gap:16px}.headerTools{gap:5px}.editorialHeader .logo{font-size:17px;gap:8px}}
+@media(max-width:760px){.headerTools{gap:4px}.themeToggle{width:32px}.mainSite{padding:0 5px}.loginButton{padding:0 10px}.editorialHeader .logo,.logo{font-size:16px;gap:7px}.accountCopy{max-width:60px;overflow:hidden}.accountTrigger{gap:4px;padding-right:6px}}
+:global(.dark) .header,:global(.dark) .page{--ink:#e6e7ec;--muted:#a0aaba;--gold:#cfad70;--line:#30394a;--yellow:#c9a65e}
+:global(.dark) .header nav a{color:#a9b3c3}:global(.dark) .header nav a[aria-current]{color:var(--gold)}
+:global(.dark) .loginButton,:global(.dark) .accountTrigger{background:#192231aa}
+:global(.dark) .accountPanel{background:#192231}
+:global(.dark) :is(.article,.path,.pathDetail,.homeCard,.search,.secondary,.lock,.empty){background:#192231;border-color:#30394a}
+:global(.dark) :is(.heroArt,.homeMedia){background:#222c3c;border-color:#30394a}
+:global(.dark) .articleArt img{mix-blend-mode:normal;opacity:.75}
+:global(.dark) :is(.heroArt img,.homeMedia img){opacity:.8}
+:global(.dark) :is(.reading p,.readLead,.tabs button,.pathDetail ol){color:#aab4c5}
+:global(.dark) .vip{background:#342e24;border-color:#675432}:global(.dark) .public{background:#263144;color:#b8c2d0}
+:global(.dark) .path[aria-pressed=true]{background:#302d26;border-color:#ad8b50}
+:global(.dark) .loginPage{background:radial-gradient(ellipse at 50% 25%,#29291f,transparent 65%)}
+:global(.dark) .loginCard h1{color:#e6e7ec}:global(.dark) .loginCard p{color:#a0aaba}

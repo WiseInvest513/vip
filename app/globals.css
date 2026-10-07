@@ -541,3 +541,5 @@ input[type="range"].slider::-moz-range-thumb {
   opacity: var(--dot-secondary, 0.04);
 }
 
+
+html.dark { --bg-primary: 218 36% 10%; }

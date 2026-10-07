@@ -153,3 +153,11 @@
 /* Optical adjustments against the approved desktop composition. */
 @media(min-width:1001px){.copy{padding-top:clamp(110px,8.5vw,137px)}.copy h1{line-height:1.2}.description{margin-top:12px}.content{padding-top:0}.sectionHeading,.entry h3{font-weight:600}}
 @media(max-width:600px){.description{max-width:350px}.description span,.sectionHeading span{display:block}}
+
+:global(.dark) .home{--home-ink:#eeeae2;--home-muted:#a7b0bf;--home-gold:#d0af71;--home-line:#30394a;background:#101722}
+:global(.dark) .art img{filter:brightness(.32) saturate(.65)}
+:global(.dark) .hero::after{background:linear-gradient(transparent,#101722)}
+:global(.dark) .description{color:#bdc4cf}
+:global(.dark) .light{opacity:.15;background:radial-gradient(ellipse,#bb9b4f30,transparent 67%)}
+:global(.dark) .motionButton{background:#192231aa;color:#d0af71}
+@media(max-width:600px){:global(.dark) .art{mask-image:linear-gradient(transparent,#000 35%);-webkit-mask-image:linear-gradient(transparent,#000 35%)}}
