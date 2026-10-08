@@ -11,9 +11,10 @@ Copy `.env.example` to `.env.local` and configure Wise ID credentials when testi
 ## Pages and content access
 
 - `/`: introduction to the VIP site.
-- `/chat`: ten curated principles and ten discussions. Visitors and ordinary members receive only the first three principles. VIP and VIP+ members receive all ten.
-- `/chat/[slug]`: the fixed free articles are `investment-principles`, `macro-observation`, and `research-fewer-products`. Other articles require VIP or VIP+. Lists and locked pages expose only public introductions; protected bodies stay on the server. Newly added articles are VIP-only unless explicitly added to `lib/auth/discussion-access.ts`.
+- `/chat`: ten curated principles and ten discussions. Visitors and ordinary members receive only the first five principles. VIP and VIP+ members receive all ten.
+- `/chat/[slug]`: the fixed free articles are `investment-principles`, `macro-observation`, `research-fewer-products`, `earnings-quality`, and `industry-read-through`. Other articles require VIP or VIP+. Lists and locked pages expose only public introductions; protected bodies stay on the server. Newly added articles are VIP-only unless explicitly added to `lib/auth/discussion-access.ts`.
 - `/learn`: public research tools, data websites and official sources.
+- `/point`: public historical discussion and price comparisons, with 13 tracked products and six disclosed-average examples. Price snapshots are dated 2026-10-07; they are not live quotes or verified account returns.
 - `/join` and `/vip`: membership information and joining instructions.
 - `/login`: Wise ID OIDC sign-in, returning to the requested internal page.
 

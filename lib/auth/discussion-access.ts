@@ -3,6 +3,8 @@ export const FREE_DISCUSSION_SLUGS: readonly string[] = [
   "investment-principles",
   "macro-observation",
   "research-fewer-products",
+  "earnings-quality",
+  "industry-read-through",
 ];
 
 export function isFreeDiscussion(slug: string) {

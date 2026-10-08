@@ -1,0 +1,601 @@
+[
+  {
+    "ticker": "AVGO",
+    "name": "博通",
+    "sector": "半导体",
+    "stance": "先看风险，后来参与",
+    "first": {
+      "time": "2026-08-26 23:35:29",
+      "text": "avgo 空仓指标",
+      "sourceLine": 995,
+      "excerpt": false
+    },
+    "events": [
+      {
+        "time": "2026-09-04 22:00:37",
+        "text": "不建议进 avgo",
+        "sourceLine": 7295,
+        "excerpt": false
+      },
+      {
+        "time": "2026-09-15 21:36:55",
+        "text": "avgo 我 345 也进了一些",
+        "sourceLine": 14589,
+        "excerpt": false
+      },
+      {
+        "time": "2026-09-24 17:41:37",
+        "text": "avgo 我昨天说了 365 别介 349  346   346 我再接一点",
+        "sourceLine": 25055,
+        "excerpt": false
+      }
+    ],
+    "context": "最早讨论的是财报风险，9 月 4 日仍不建议进场；直到 9 月 15 日，才明确记录在 345 附近参与。早期提及不能写成从那一天开始看多。",
+    "lesson": "关注财报与市场预期的差距，也保留从谨慎到参与的变化。",
+    "baseline": {
+      "date": "2026-08-26",
+      "close": 355.59
+    },
+    "latest": {
+      "date": "2026-10-07",
+      "close": 376.51
+    },
+    "source": {
+      "label": "Nasdaq 历史行情",
+      "url": "https://www.nasdaq.com/market-activity/stocks/avgo/historical",
+      "apiUrl": "https://api.nasdaq.com/api/quote/AVGO/historical?assetclass=stocks&fromdate=2026-08-24&todate=2026-10-07&limit=5000",
+      "retrievedAt": "2026-10-08T06:17:40.114221+00:00"
+    }
+  },
+  {
+    "ticker": "MRVL",
+    "name": "迈威尔",
+    "sector": "半导体",
+    "stance": "开多与分段跟踪",
+    "first": {
+      "time": "2026-08-26 22:56:01",
+      "text": "其一 intc be mrvl 都是点位",
+      "sourceLine": 831,
+      "excerpt": false
+    },
+    "events": [
+      {
+        "time": "2026-08-28 16:14:48",
+        "text": "mrvl 我准备开多 跌太多了 我觉得可以开多",
+        "sourceLine": 3261,
+        "excerpt": false
+      },
+      {
+        "time": "2026-09-11 22:13:12",
+        "text": "那天，嗯，迈威尔不是从226拉到240嘛？240当时我没有走，当时好像在直播还是干嘛。然后238的时候，我就立马就走了，因为我的预期值就是240的样子，他再多更多的话，就和我没关系了",
+        "sourceLine": 12728,
+        "excerpt": false
+      },
+      {
+        "time": "2026-09-14 22:51:12",
+        "text": "210 mrvl",
+        "sourceLine": 14078,
+        "excerpt": false
+      },
+      {
+        "time": "2026-10-02 17:03:55",
+        "text": "你看 be 290 走的 我记得清楚 mrvl 270 走的 群里大家都知道",
+        "sourceLine": 36235,
+        "excerpt": false
+      }
+    ],
+    "context": "8 月 28 日明确表达准备开多；随后多次讨论压力位，并记录过 210 的持仓均价。不同时间有不同交易，不能把所有片段拼成一笔从未离场的持仓。",
+    "lesson": "把参与位置、预期位置和实际离场分开看，理解一段行情中的策略变化。",
+    "baseline": {
+      "date": "2026-08-26",
+      "close": 245.11
+    },
+    "latest": {
+      "date": "2026-10-07",
+      "close": 284.68
+    },
+    "source": {
+      "label": "Nasdaq 历史行情",
+      "url": "https://www.nasdaq.com/market-activity/stocks/mrvl/historical",
+      "apiUrl": "https://api.nasdaq.com/api/quote/MRVL/historical?assetclass=stocks&fromdate=2026-08-24&todate=2026-10-07&limit=5000",
+      "retrievedAt": "2026-10-08T06:17:42.112363+00:00"
+    }
+  },
+  {
+    "ticker": "INTC",
+    "name": "英特尔",
+    "sector": "半导体",
+    "stance": "持有与压力位",
+    "first": {
+      "time": "2026-08-26 22:56:01",
+      "text": "其一 intc be mrvl 都是点位",
+      "sourceLine": 831,
+      "excerpt": false
+    },
+    "events": [
+      {
+        "time": "2026-09-04 23:07:08",
+        "text": "mrvl 拿着 mu 拿着 存储拿着 amd 别拿 intc 拿着 be 拿着 oklo 别拿 rklb 别拿",
+        "sourceLine": 7399,
+        "excerpt": true
+      },
+      {
+        "time": "2026-09-14 22:49:23",
+        "text": "87 的 INTC",
+        "sourceLine": 14072,
+        "excerpt": false
+      },
+      {
+        "time": "2026-09-21 22:24:11",
+        "text": "intc 120 可以走",
+        "sourceLine": 20867,
+        "excerpt": false
+      }
+    ],
+    "context": "记录中有拿着、报均价以及 120 可以走的提醒。105 是反复讨论的压力位，87 是之后报出的均价，二者不能互换。",
+    "lesson": "压力位和成本价承担不同作用；执行计划比事后寻找最高点更重要。",
+    "baseline": {
+      "date": "2026-08-26",
+      "close": 88.24
+    },
+    "latest": {
+      "date": "2026-10-07",
+      "close": 113.12
+    },
+    "source": {
+      "label": "Nasdaq 历史行情",
+      "url": "https://www.nasdaq.com/market-activity/stocks/intc/historical",
+      "apiUrl": "https://api.nasdaq.com/api/quote/INTC/historical?assetclass=stocks&fromdate=2026-08-24&todate=2026-10-07&limit=5000",
+      "retrievedAt": "2026-10-08T06:17:41.849125+00:00"
+    }
+  },
+  {
+    "ticker": "MU",
+    "name": "美光",
+    "sector": "存储",
+    "stance": "存储逻辑与价格观察",
+    "first": {
+      "time": "2026-08-26 23:23:40",
+      "text": "你 mu sndk 就看美国行情就行",
+      "sourceLine": 915,
+      "excerpt": false
+    },
+    "events": [
+      {
+        "time": "2026-09-01 15:31:22",
+        "text": "mu 看到 1000 以上",
+        "sourceLine": 5070,
+        "excerpt": false
+      },
+      {
+        "time": "2026-09-14 22:48:59",
+        "text": "861 的 MU",
+        "sourceLine": 14070,
+        "excerpt": false
+      },
+      {
+        "time": "2026-09-17 17:16:28",
+        "text": "mu 1000 ！",
+        "sourceLine": 16293,
+        "excerpt": false
+      }
+    ],
+    "context": "早期强调参考美国行情，随后讨论 1000 这一位置。9 月 14 日报出的 861 是当时披露的均价，不是本份记录中首次出现时的市场价格。",
+    "lesson": "区分行业判断、价格目标与当时实际报价。",
+    "baseline": {
+      "date": "2026-08-26",
+      "close": 938.4
+    },
+    "latest": {
+      "date": "2026-10-07",
+      "close": 1088.0
+    },
+    "source": {
+      "label": "Nasdaq 历史行情",
+      "url": "https://www.nasdaq.com/market-activity/stocks/mu/historical",
+      "apiUrl": "https://api.nasdaq.com/api/quote/MU/historical?assetclass=stocks&fromdate=2026-08-24&todate=2026-10-07&limit=5000",
+      "retrievedAt": "2026-10-08T06:17:42.118072+00:00"
+    }
+  },
+  {
+    "ticker": "SNDK",
+    "name": "闪迪",
+    "sector": "存储",
+    "stance": "持续跟踪存储行情",
+    "first": {
+      "time": "2026-08-26 23:23:03",
+      "text": "我觉得比 sndk",
+      "sourceLine": 910,
+      "excerpt": false
+    },
+    "events": [
+      {
+        "time": "2026-09-05 23:03:35",
+        "text": "ok 都聊到过了  下周前三天，我操作的重心还是 mu sndk  和 mrvl  包括 avgo 其他的七巨头 我都是现货 就不多抄作了",
+        "sourceLine": 8328,
+        "excerpt": false
+      },
+      {
+        "time": "2026-09-11 23:22:37",
+        "text": "sndk 1650 1774",
+        "sourceLine": 12853,
+        "excerpt": false
+      },
+      {
+        "time": "2026-09-21 11:05:17",
+        "text": "sndk 1800 站上了   @小周",
+        "sourceLine": 18799,
+        "excerpt": false
+      }
+    ],
+    "context": "最早出现时只是讨论中的一个片段。之后成为操作重心之一，持续讨论关键位置；1650、1774 等数字没有在同条消息中完整标注性质，因此不直接用作收益起点。",
+    "lesson": "把个股放回存储板块，结合行情与成交量跟踪，而非只记住一个数字。",
+    "baseline": {
+      "date": "2026-08-26",
+      "close": 1499.37
+    },
+    "latest": {
+      "date": "2026-10-07",
+      "close": 1692.42
+    },
+    "source": {
+      "label": "Nasdaq 历史行情",
+      "url": "https://www.nasdaq.com/market-activity/stocks/sndk/historical",
+      "apiUrl": "https://api.nasdaq.com/api/quote/SNDK/historical?assetclass=stocks&fromdate=2026-08-24&todate=2026-10-07&limit=5000",
+      "retrievedAt": "2026-10-08T06:17:40.779747+00:00"
+    }
+  },
+  {
+    "ticker": "ASML",
+    "name": "阿斯麦",
+    "sector": "半导体",
+    "stance": "观察后再表达加仓",
+    "first": {
+      "time": "2026-09-07 19:26:53",
+      "text": "asml",
+      "sourceLine": 9129,
+      "excerpt": false
+    },
+    "events": [
+      {
+        "time": "2026-09-09 10:01:35",
+        "text": "asml 看会不会动",
+        "sourceLine": 10393,
+        "excerpt": false
+      },
+      {
+        "time": "2026-09-14 22:50:31",
+        "text": "1582 asml",
+        "sourceLine": 14075,
+        "excerpt": false
+      },
+      {
+        "time": "2026-09-16 11:42:42",
+        "text": "asml 也可以加 大家要加的话",
+        "sourceLine": 14918,
+        "excerpt": false
+      }
+    ],
+    "context": "9 月 7 日先点名，9 月 9 日仍在观察会不会动；9 月 14 日报均价 1582，9 月 16 日才明确说可以加。观察与行动保留各自的时间。",
+    "lesson": "从观察到参与是一个过程，首次提及不等于当天发出了买入判断。",
+    "baseline": {
+      "date": "2026-09-08",
+      "close": 1764.85
+    },
+    "latest": {
+      "date": "2026-10-07",
+      "close": 1804.96
+    },
+    "source": {
+      "label": "Nasdaq 历史行情",
+      "url": "https://www.nasdaq.com/market-activity/stocks/asml/historical",
+      "apiUrl": "https://api.nasdaq.com/api/quote/ASML/historical?assetclass=stocks&fromdate=2026-08-24&todate=2026-10-07&limit=5000",
+      "retrievedAt": "2026-10-08T06:17:41.704231+00:00"
+    }
+  },
+  {
+    "ticker": "AAOI",
+    "name": "应用光电",
+    "sector": "光通信",
+    "stance": "榜单线索与行情跟踪",
+    "first": {
+      "time": "2026-09-21 01:40:48",
+      "text": "以下是2026年表现最佳的15只股票 […] 9. $AAOI +202%",
+      "sourceLine": 18753,
+      "excerpt": true
+    },
+    "events": [
+      {
+        "time": "2026-09-23 10:07:35",
+        "text": "aaoi",
+        "sourceLine": 23383,
+        "excerpt": false
+      },
+      {
+        "time": "2026-10-01 22:57:07",
+        "text": "aaoi 99 刚才 现在 104",
+        "sourceLine": 35168,
+        "excerpt": false
+      }
+    ],
+    "context": "最早来自群内转发的年度涨幅榜，随后有单独点名与行情跟踪。99 到 104 出现在同一条回顾消息里，不能写成提前给出的 99 买入建议。",
+    "lesson": "把转发线索和独立判断分开，回头检查一条消息能证明什么。",
+    "baseline": {
+      "date": "2026-09-21",
+      "close": 108.67
+    },
+    "latest": {
+      "date": "2026-10-07",
+      "close": 122.54
+    },
+    "source": {
+      "label": "Nasdaq 历史行情",
+      "url": "https://www.nasdaq.com/market-activity/stocks/aaoi/historical",
+      "apiUrl": "https://api.nasdaq.com/api/quote/AAOI/historical?assetclass=stocks&fromdate=2026-08-24&todate=2026-10-07&limit=5000",
+      "retrievedAt": "2026-10-08T06:17:43.327758+00:00"
+    }
+  },
+  {
+    "ticker": "BE",
+    "name": "Bloom Energy",
+    "sector": "电力",
+    "stance": "持有与离场记录",
+    "first": {
+      "time": "2026-08-26 22:56:01",
+      "text": "其一 intc be mrvl 都是点位",
+      "sourceLine": 831,
+      "excerpt": false
+    },
+    "events": [
+      {
+        "time": "2026-09-04 23:07:08",
+        "text": "mrvl 拿着 mu 拿着 存储拿着 amd 别拿 intc 拿着 be 拿着 oklo 别拿 rklb 别拿",
+        "sourceLine": 7399,
+        "excerpt": true
+      },
+      {
+        "time": "2026-09-14 22:49:07",
+        "text": "208 的 BE",
+        "sourceLine": 14071,
+        "excerpt": false
+      },
+      {
+        "time": "2026-09-29 21:51:51",
+        "text": "be 走了 290！",
+        "sourceLine": 31224,
+        "excerpt": false
+      },
+      {
+        "time": "2026-10-07 13:11:14",
+        "text": "be 295 啦 真扯淡 我买的时候 208 好像",
+        "sourceLine": 43634,
+        "excerpt": false
+      }
+    ],
+    "context": "有建议拿着、披露 208 均价和 290 离场的记录。之后再次报出 295，只能说明后续价格变化，不能据此假设整段期间一直持有。",
+    "lesson": "行业方向、阶段交易与后续观察可以同时存在，复盘要保留离场记录。",
+    "baseline": {
+      "date": "2026-08-26",
+      "close": 218.21
+    },
+    "latest": {
+      "date": "2026-10-07",
+      "close": 291.29
+    },
+    "source": {
+      "label": "Nasdaq 历史行情",
+      "url": "https://www.nasdaq.com/market-activity/stocks/be/historical",
+      "apiUrl": "https://api.nasdaq.com/api/quote/BE/historical?assetclass=stocks&fromdate=2026-08-24&todate=2026-10-07&limit=5000",
+      "retrievedAt": "2026-10-08T06:17:45.270579+00:00"
+    }
+  },
+  {
+    "ticker": "VST",
+    "name": "Vistra",
+    "sector": "电力",
+    "stance": "先观察，再表达看好",
+    "first": {
+      "time": "2026-10-05 13:56:22",
+      "text": "vst",
+      "sourceLine": 39363,
+      "excerpt": false
+    },
+    "events": [
+      {
+        "time": "2026-10-05 23:41:23",
+        "text": "vst 146",
+        "sourceLine": 40487,
+        "excerpt": false
+      },
+      {
+        "time": "2026-10-05 23:41:52",
+        "text": "都还没进 等我再看一天",
+        "sourceLine": 40489,
+        "excerpt": false
+      },
+      {
+        "time": "2026-10-06 19:06:11",
+        "text": "这样 愿意上 vst orcl 的 拿点现货 像齐齐老师推荐的 giggle 一样",
+        "sourceLine": 41029,
+        "excerpt": false
+      },
+      {
+        "time": "2026-10-07 13:11:30",
+        "text": "vst 相信 可以重仓",
+        "sourceLine": 43635,
+        "excerpt": false
+      }
+    ],
+    "context": "10 月 5 日提到 146 后，明确说还没进；10 月 6 日才提出拿点现货，后续继续表达看好。170 是计划位置，不作为已实现价格。",
+    "lesson": "保留尚未行动的原话，看到判断如何从观察变得明确。",
+    "baseline": {
+      "date": "2026-10-05",
+      "close": 144.89
+    },
+    "latest": {
+      "date": "2026-10-07",
+      "close": 166.72
+    },
+    "source": {
+      "label": "Nasdaq 历史行情",
+      "url": "https://www.nasdaq.com/market-activity/stocks/vst/historical",
+      "apiUrl": "https://api.nasdaq.com/api/quote/VST/historical?assetclass=stocks&fromdate=2026-08-24&todate=2026-10-07&limit=5000",
+      "retrievedAt": "2026-10-08T06:17:43.432134+00:00"
+    }
+  },
+  {
+    "ticker": "CEG",
+    "name": "Constellation Energy",
+    "sector": "电力",
+    "stance": "明确关注，未报买入价",
+    "first": {
+      "time": "2026-09-09 10:04:15",
+      "text": "be etn ceg 可以去看一下哎",
+      "sourceLine": 10404,
+      "excerpt": false
+    },
+    "events": [
+      {
+        "time": "2026-09-09 10:04:23",
+        "text": "be 我了解 其他的我也在关注",
+        "sourceLine": 10405,
+        "excerpt": false
+      }
+    ],
+    "context": "原话是与 BE、ETN 一起可以去看一下，紧接着说明其他的也在关注。当前文字证据支持关注记录，不支持宣称给过具体买入点。",
+    "lesson": "从熟悉的公司扩展产业观察，但不把观察名单包装成买入建议。",
+    "baseline": {
+      "date": "2026-09-09",
+      "close": 293.905
+    },
+    "latest": {
+      "date": "2026-10-07",
+      "close": 299.59
+    },
+    "source": {
+      "label": "Nasdaq 历史行情",
+      "url": "https://www.nasdaq.com/market-activity/stocks/ceg/historical",
+      "apiUrl": "https://api.nasdaq.com/api/quote/CEG/historical?assetclass=stocks&fromdate=2026-08-24&todate=2026-10-07&limit=5000",
+      "retrievedAt": "2026-10-08T06:17:45.470235+00:00"
+    }
+  },
+  {
+    "ticker": "GLW",
+    "name": "康宁",
+    "sector": "光通信与材料",
+    "stance": "披露持仓均价",
+    "first": {
+      "time": "2026-09-14 22:50:44",
+      "text": "131 glw",
+      "sourceLine": 14076,
+      "excerpt": false
+    },
+    "events": [
+      {
+        "time": "2026-09-14 22:48:32",
+        "text": "我说均价和产品",
+        "sourceLine": 14069,
+        "excerpt": false
+      }
+    ],
+    "context": "9 月 14 日，Wise 先说明“我说均价和产品”，随后说“131 glw”。131 是披露的持仓均价，不是当天收盘价；当前文字证据未明确具体买入时间或卖出结果。",
+    "lesson": "分别看持仓均价、披露时的市场价格与后续走势，避免把成本误当成新用户当时能买到的价格。",
+    "baseline": {
+      "date": "2026-09-14",
+      "close": 143.6
+    },
+    "latest": {
+      "date": "2026-10-07",
+      "close": 163.25
+    },
+    "source": {
+      "label": "Nasdaq 历史行情",
+      "url": "https://www.nasdaq.com/market-activity/stocks/glw/historical",
+      "apiUrl": "https://api.nasdaq.com/api/quote/GLW/historical?assetclass=stocks&fromdate=2026-08-24&todate=2026-10-07&limit=5000",
+      "retrievedAt": "2026-10-08T07:28:19.451837+00:00"
+    }
+  },
+  {
+    "ticker": "DRAM",
+    "name": "Roundhill 存储 ETF",
+    "sector": "存储 ETF",
+    "stance": "直播关注与披露均价",
+    "first": {
+      "time": "2026-09-04 13:58:51",
+      "text": "dram？",
+      "sourceLine": 6774,
+      "excerpt": false
+    },
+    "events": [
+      {
+        "time": "2026-09-04 22:02:09",
+        "text": "dram 我直播说了",
+        "sourceLine": 7316,
+        "excerpt": false
+      },
+      {
+        "time": "2026-09-07 18:37:19",
+        "text": "还有一个 dram 也在偷偷跑",
+        "sourceLine": 9075,
+        "excerpt": false
+      },
+      {
+        "time": "2026-09-14 22:48:32",
+        "text": "我说均价和产品",
+        "sourceLine": 14069,
+        "excerpt": false
+      },
+      {
+        "time": "2026-09-14 22:51:01",
+        "text": "51 dram",
+        "sourceLine": 14077,
+        "excerpt": false
+      }
+    ],
+    "context": "9 月 4 日先问到 DRAM，并提到直播里讲过；9 月 14 日在报持仓均价时说“51 dram”。DRAM 是存储主题 ETF，不是某一家存储公司的股票。",
+    "lesson": "通过一篮子存储公司理解产业机会，同时区分 ETF 的组合表现与单只股票的表现。",
+    "baseline": {
+      "date": "2026-09-04",
+      "close": 59.69
+    },
+    "latest": {
+      "date": "2026-10-07",
+      "close": 60.01
+    },
+    "source": {
+      "label": "Nasdaq 历史行情",
+      "url": "https://www.nasdaq.com/market-activity/etf/dram/historical",
+      "apiUrl": "https://api.nasdaq.com/api/quote/DRAM/historical?assetclass=etf&fromdate=2026-08-24&todate=2026-10-07&limit=5000",
+      "retrievedAt": "2026-10-08T08:08:51.235565+00:00"
+    }
+  },
+  {
+    "ticker": "PENG",
+    "name": "Penguin Solutions",
+    "sector": "算力基础设施",
+    "stance": "转发关注 · 非买入建议",
+    "first": {
+      "time": "2026-09-21 01:40:48",
+      "text": "以下是2026年表现最佳的15只股票 […] 12. $PENG +172%",
+      "sourceLine": 18753,
+      "excerpt": true
+    },
+    "events": [],
+    "context": "9 月 21 日，Wise 转发的年度表现榜单包含 PENG。以下对照从转发之后的第一个交易收盘开始计算；榜单原有的年度涨幅不计入。现有原话支持关注线索，不支持宣称给过买入建议。",
+    "lesson": "转发榜单可以发现研究方向，但还需要核对业务、财报和当时估值；涨幅本身不是研究结论。",
+    "baseline": {
+      "date": "2026-09-21",
+      "close": 54.91
+    },
+    "latest": {
+      "date": "2026-10-07",
+      "close": 72.61
+    },
+    "source": {
+      "label": "Nasdaq 历史行情",
+      "url": "https://www.nasdaq.com/market-activity/stocks/peng/historical",
+      "apiUrl": "https://api.nasdaq.com/api/quote/PENG/historical?assetclass=stocks&fromdate=2026-08-24&todate=2026-10-07&limit=5000",
+      "retrievedAt": "2026-10-08T07:28:25.772669+00:00"
+    }
+  }
+]

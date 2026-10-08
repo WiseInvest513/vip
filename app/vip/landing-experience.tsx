@@ -4,7 +4,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { AmbientSurface } from "./ambient-surface";
 import styles from "./vip.module.css";
 
-const sections = [
+const defaultSections = [
   ["vip-community", "社群交流"],
   ["vip-history", "历史战绩"],
   ["vip-tools", "研究工具"],
@@ -14,7 +14,7 @@ const sections = [
 ] as const;
 
 /** A small client island: content and access decisions stay on the server. */
-export function LandingExperience({ hero, children }: { hero: ReactNode; children: ReactNode }) {
+export function LandingExperience({ hero, children, sections = defaultSections, label = "VIP 页面目录" }: { hero: ReactNode; children: ReactNode; sections?: readonly (readonly [string, string])[]; label?: string }) {
   const root = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState<string>("invitation");
 
@@ -78,6 +78,7 @@ export function LandingExperience({ hero, children }: { hero: ReactNode; childre
       if (!href || !target) return;
       event.preventDefault();
       window.history.pushState(null, "", href);
+      if (target instanceof HTMLDetailsElement) target.open = true;
       target.scrollIntoView({ behavior: reducedMotion.matches ? "instant" : "smooth", block: "start" });
       // Preserve keyboard navigation: the next Tab continues within this section.
       target.focus({ preventScroll: true });
@@ -150,13 +151,13 @@ export function LandingExperience({ hero, children }: { hero: ReactNode; childre
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", scheduleUpdate);
     };
-  }, []);
+  }, [sections]);
 
   return (
     <div className={styles.shell} ref={root}>
       {hero}
       <aside className={styles.sidebar}>
-        <nav className={styles.index} aria-label="VIP 页面目录">
+        <nav className={styles.index} aria-label={label}>
           <span className={styles.indexTitle}>本页目录</span>
           {sections.map(([id, label], index) => (
             <a key={id} href={`#${id}`} aria-current={active === id ? "location" : undefined}>

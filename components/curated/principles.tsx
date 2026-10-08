@@ -33,7 +33,7 @@ export function Principles({ principles, total, hasFullAccess, signedIn }: { pri
       <div className={s.gateActions}>
         <Link className={s.goldButton} href={signedIn ? "/join" : "/login?callbackUrl=%2Fchat%23principles"}>{signedIn ? "了解 VIP 加入方式" : "登录并验证 VIP 身份"}<ArrowUpRight size={16} /></Link>
         {!signedIn && <Link href="/join">还不是 VIP？了解加入方式 <ArrowUpRight size={13} /></Link>}
-        <span>{signedIn ? "当前为普通用户，可阅读前三条。" : "普通用户与访客可阅读前三条。"}会员权益与主站同步。</span>
+        <span>{signedIn ? "当前为普通用户，可阅读前五条。" : "普通用户与访客可阅读前五条。"}会员权益与主站同步。</span>
       </div>
     </aside>}
   </>;

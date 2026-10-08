@@ -15,7 +15,7 @@ import s from "@/components/curated/curated.module.css";
 
 export const metadata = {
   title: "精选讨论 · Wise VIP",
-  description: "从 Wise 的十条投资准则开始，读懂真实群聊里的分析、追问与复盘。前三条准则开放阅读，VIP 可阅读完整十条及讨论上下文。",
+  description: "从 Wise 的十条投资准则开始，读懂真实群聊里的分析、追问与复盘。前五条准则开放阅读，VIP 可阅读完整十条及讨论上下文。",
   alternates: { canonical: "/chat" },
 };
 
@@ -32,12 +32,12 @@ export default async function Chat() {
     <AmbientSurface className={frame.surface}>
     <nav className={s.routeStrip} aria-label="精选讨论阅读顺序"><a href="#principles"><span>01</span>读十条准则 <ArrowDown size={12} /></a><a href="#discussions"><span>02</span>进入真实讨论 <ArrowDown size={12} /></a><span>从一句话，读到背后的思考。</span></nav>
     <section id="principles" className={s.section}>
-      <div className={s.sectionHeading}><div><p className={s.eyebrow}>01 / THE PRINCIPLES</p><h2>十条准则，先于每一次操作。</h2><p>Wise 的投资纪律。展开一句话，读懂背后的判断与讨论。</p></div><p className={s.sectionHint}>{access.hasFullAccess ? "VIP 专享 · 完整十条" : "免费试读 · 前三条"}<br />保留原话与上下文，新增准则单独注明。</p></div>
+      <div className={s.sectionHeading}><div><p className={s.eyebrow}>01 / THE PRINCIPLES</p><h2>十条准则，先于每一次操作。</h2><p>Wise 的投资纪律。展开一句话，读懂背后的判断与讨论。</p></div><p className={s.sectionHint}>{access.hasFullAccess ? "VIP 专享 · 完整十条" : "免费试读 · 前五条"}<br />保留原话与上下文，新增准则单独注明。</p></div>
       <Principles principles={access.visible} total={access.total} hasFullAccess={access.hasFullAccess} signedIn={tier !== null} />
       <div className={s.bridge}><p>准则需要放回具体问题里，才会变成自己的判断。</p><a href="#discussions">浏览全部精选讨论 <ArrowDown size={14} /></a></div>
     </section>
     <section id="discussions" className={s.discussionSection}>
-      <div className={s.sectionHeading}><div><p className={s.eyebrow}>02 / INSIDE THE CONVERSATION</p><h2>一个问题，值得聊得更深。</h2><p>真实问题 → 分析 → 追问 → 复盘。把思考过程完整留下来。</p></div><p className={s.sectionHint}>{curatedDiscussions.length} 篇精选讨论 · 前三篇免费。<br />VIP 可阅读全部文章与复盘。</p></div>
+      <div className={s.sectionHeading}><div><p className={s.eyebrow}>02 / INSIDE THE CONVERSATION</p><h2>一个问题，值得聊得更深。</h2><p>真实问题 → 分析 → 追问 → 复盘。把思考过程完整留下来。</p></div><p className={s.sectionHint}>{curatedDiscussions.length} 篇精选讨论 · 前五篇免费。<br />VIP 可阅读全部文章与复盘。</p></div>
       <Collection discussions={previews} hasFullAccess={access.hasFullAccess} />
       <div className={s.bridge}><p>想查数据、核对出处或找研究工具？</p><Link href="/learn">浏览资料与工具 <ArrowUpRight size={14} /></Link></div>
     </section>

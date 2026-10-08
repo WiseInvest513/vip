@@ -28,7 +28,7 @@ export function Collection({ discussions, hasFullAccess }: { discussions: Discus
         {query && <button type="button" aria-label="清除搜索" onClick={() => setQuery("")}><X size={15} /></button>}
       </label>
     </div>
-    <p className={s.resultCount} aria-live="polite">{filtered.length} 篇讨论 · {hasFullAccess ? "VIP 已解锁全部文章" : "前三篇免费阅读，其余 VIP 专享"}</p>
+    <p className={s.resultCount} aria-live="polite">{filtered.length} 篇讨论 · {hasFullAccess ? "VIP 已解锁全部文章" : "前五篇免费阅读，其余 VIP 专享"}</p>
     <div className={s.collection}>
       {filtered.map((discussion) => <Link href={`/chat/${discussion.slug}`} key={discussion.slug} className={s.discussionCard}>
         <div className={s.cardTop}><span>{discussion.category}</span><span>{discussion.vipOnly ? <><LockKeyhole size={12} />{hasFullAccess ? "VIP 已解锁" : "VIP 专享"}</> : "免费阅读"} · {discussion.readingMinutes} 分钟</span></div>

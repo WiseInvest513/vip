@@ -34,8 +34,8 @@ test('only verified VIP tiers can receive all principle fields', () => {
   const selected=selectPrinciplesForViewer(rules,tier);
   assert.equal(selected.hasFullAccess,false);
   assert.equal(selected.total,10);
-  assert.deepEqual(selected.visible,rules.slice(0,3));
-  assert.equal(JSON.stringify(selected).includes('private-context-4'),false);
+  assert.deepEqual(selected.visible,rules.slice(0,5));
+  assert.equal(JSON.stringify(selected).includes('private-context-6'),false);
  }
  for(const tier of ['VIP','VIP_PLUS']) {
   const selected=selectPrinciplesForViewer(rules,tier);
@@ -45,27 +45,27 @@ test('only verified VIP tiers can receive all principle fields', () => {
  assert.equal(rules.length,10);
 });
 test('fresh membership downgrade and provider failure revoke full principle access',async()=>{
- for(const [request,count] of [[response('VIP'),10],[response('VIP_PLUS'),10],[response('MEMBER'),3],[response('ADMIN'),3],[response('VIP','other'),3],[async()=>new Response('',{status:503}),3]]) {
+ for(const [request,count] of [[response('VIP'),10],[response('VIP_PLUS'),10],[response('MEMBER'),5],[response('ADMIN'),5],[response('VIP','other'),5],[async()=>new Response('',{status:503}),5]]) {
   const profile=await verifyMembership('token',future(),'u1','https://main.test',request);
   assert.equal(selectPrinciplesForViewer(rules,profile?.membershipTier??null).visible.length,count);
  }
  const expired=await verifyMembership('token',1,'u1','https://main.test',async()=>{throw Error('must not fetch')});
- assert.equal(selectPrinciplesForViewer(rules,expired?.membershipTier??null).visible.length,3);
+ assert.equal(selectPrinciplesForViewer(rules,expired?.membershipTier??null).visible.length,5);
 });
 
 const {FREE_DISCUSSION_SLUGS,canReadDiscussion}=require('../.auth-test/discussion-access.js');
-test('exactly the original first three articles are public; unknown and new slugs stay locked',()=>{
- assert.deepEqual(FREE_DISCUSSION_SLUGS,['investment-principles','macro-observation','research-fewer-products']);
+test('exactly the original first five articles are public; unknown and new slugs stay locked',()=>{
+ assert.deepEqual(FREE_DISCUSSION_SLUGS,['investment-principles','macro-observation','research-fewer-products','earnings-quality','industry-read-through']);
  for(const tier of [null,'MEMBER','ADMIN','vip']) {
   for(const slug of FREE_DISCUSSION_SLUGS)assert.equal(canReadDiscussion(slug,tier),true);
-  for(const slug of ['earnings-quality','orders-and-execution','market-volatility','new-article','03','research-fewer-products?free=true'])assert.equal(canReadDiscussion(slug,tier),false);
+  for(const slug of ['conviction-before-buying','orders-and-execution','market-volatility','new-article','03','research-fewer-products?free=true'])assert.equal(canReadDiscussion(slug,tier),false);
  }
- for(const tier of ['VIP','VIP_PLUS'])assert.equal(canReadDiscussion('earnings-quality',tier),true);
+ for(const tier of ['VIP','VIP_PLUS'])assert.equal(canReadDiscussion('conviction-before-buying',tier),true);
 });
 test('fresh downgrade or unavailable membership removes article access',async()=>{
  for(const [request,allowed] of [[response('VIP'),true],[response('VIP_PLUS'),true],[response('MEMBER'),false],[response('VIP','other'),false],[async()=>new Response('',{status:503}),false]]){
   const user=await verifyMembership('token',future(),'u1','https://main.test',request);
-  assert.equal(canReadDiscussion('earnings-quality',user?.membershipTier??null),allowed);
+  assert.equal(canReadDiscussion('conviction-before-buying',user?.membershipTier??null),allowed);
  }
 });
 
