@@ -2,7 +2,7 @@ import { genUid } from "@/lib/article-uid";
 
 // Public editorial metadata only; no protected article body on this landing page.
 export const featuredArticle = {
-  href: `/articles/VIP/${genUid("VIP001")}`,
+  href: "/article/WGa8Mm2t",
   title: "市场没结束，只是进入了估值摩擦期",
   date: "2026-09-05",
   summary: "从美债与利率，到 AI、存储、BTC 与黄金，看看一个市场判断是怎样形成的。",

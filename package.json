@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "test:auth": "tsc lib/auth/wise-id.ts lib/auth/membership.ts lib/auth/principle-access.ts lib/auth/discussion-access.ts --outDir .auth-test --module commonjs --target ES2022 --skipLibCheck && node --test tests/auth.cjs",
-    "test:auth:integration": "node tests/oidc-session.mjs"
+    "test:auth:integration": "node tests/oidc-session.mjs",
+    "test:articles": "tsc lib/auth/article-access.ts lib/auth/membership.ts --outDir .auth-test --module commonjs --target ES2022 --skipLibCheck && node --test tests/article-access.cjs"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "1.1.15",
@@ -18,6 +19,8 @@
     "next-auth": "^5.0.0-beta.32",
     "react": "19.2.3",
     "react-dom": "19.2.3",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1",
     "server-only": "^0.0.1",
     "tailwind-merge": "2.6.0"
   },
