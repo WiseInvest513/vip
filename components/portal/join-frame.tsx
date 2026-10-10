@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import Image from "next/image";
+import Image, { type ImageProps } from "next/image";
 import Link from "next/link";
 import { ArrowRight, Crown } from "lucide-react";
 import { Motion } from "./motion";
@@ -17,7 +17,7 @@ export function JoinHero({ title, description, action, href, image, alt, seconda
   description: string;
   action: string;
   href: string;
-  image: string;
+  image: ImageProps["src"];
   alt: string;
   secondary?: boolean;
 }) {

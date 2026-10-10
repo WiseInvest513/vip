@@ -11,6 +11,8 @@ import { isFreeDiscussion } from "@/lib/auth/discussion-access";
 import { PUBLIC_PRINCIPLE_LIMIT } from "@/lib/auth/principle-access";
 import { articles } from "@/lib/articles/content";
 import records from "@/lib/point/records.json";
+import { fedCycleCover, getArticleCover } from "@/lib/media/article-covers";
+import { heroArtwork, discussionArtwork, reviewArtwork, learningArtwork } from "@/lib/media/portal-artwork";
 import vip from "./vip/vip.module.css";
 import frame from "@/components/portal/join-frame.module.css";
 import s from "./home.module.css";
@@ -28,31 +30,33 @@ const latestArticles = [...articles]
   .sort((a, b) => b.date.localeCompare(a.date))
   .slice(0, 2)
   .map(({ slug, title, summary, date, readingMinutes, cover, coverAlt, access }) => ({ slug, title, summary, date, readingMinutes, cover, coverAlt, access }));
+// The 160px-tall, contain-fit artwork paints at these widths, not the full card width.
+// Browsers still select higher-resolution srcset variants for high-DPR screens.
 const entries = [
   {
     title: "研究文章", href: "/article", action: "阅读市场手记",
-    image: "/images/articles/fed-cycle.png", alt: "读懂美联储，看清资产的变化 · WiseInvest",
+    image: fedCycleCover, imageDisplayWidth: 285, alt: "读懂美联储，看清资产的变化 · WiseInvest",
     count: `${articles.length} 篇长文 · WiseInvest 原创`,
     description: "从美股、利率到公司与加密市场，阅读完整分析，理解当时的判断与依据。",
     access: "开放试读 · VIP 阅读全文",
   },
   {
     title: "精选讨论", href: "/chat", action: "读准则与讨论",
-    image: "/images/portal/chat-hero.png", alt: "精选讨论与研究笔记",
+    image: discussionArtwork, imageDisplayWidth: 240, alt: "精选讨论与研究笔记",
     count: `${principles.length} 条准则 · ${curatedDiscussions.length} 篇讨论`,
     description: "从真实问题出发，读投资准则与群内讨论，理解分析、追问和复盘的过程。",
     access: `前 ${PUBLIC_PRINCIPLE_LIMIT} 条准则、${freeDiscussions.length} 篇讨论免费阅读`,
   },
   {
     title: "观点追踪", href: "/point", action: "回看历史观点",
-    image: "/images/vip/topic-review.png", alt: "研究笔记与观点复盘",
+    image: reviewArtwork, imageDisplayWidth: 240, alt: "研究笔记与观点复盘",
     count: `${records.length} 个重点标的 · 原话与后续变化`,
     description: "回看重点标的的历史观点，对照当时的原话、讨论日期与后续的价格变化。",
     access: "全部公开 · 无需登录",
   },
   {
     title: "资料与工具", href: "/learn", action: "查找研究资源",
-    image: "/images/portal/learn-hero.png", alt: "学习书籍与参考资料",
+    image: learningArtwork, imageDisplayWidth: 240, alt: "学习书籍与参考资料",
     count: `${resources.length} 项资源 · 按用途查找`,
     description: "按研究问题查找财报、宏观与产业资料，了解工具用途，再回到官方来源核对。",
     access: "目录公开 · 附用途与使用起点",
@@ -63,7 +67,7 @@ export default function Home() {
   return <main className={`${vip.page} ${frame.page} ${s.home}`}>
     <Motion>
       <section className={s.hero} aria-labelledby="home-title">
-        <div className={s.heroScene} aria-hidden="true"><Image src="/images/portal/vip-research-atrium.webp" alt="" fill priority sizes="(max-width: 359px) calc(100vw - 32px), (max-width: 760px) calc(100vw - 40px), (max-width: 1000px) calc(100vw - 56px), (max-width: 1240px) calc(100vw - 80px), 1160px" className={s.heroArtwork} /></div>
+        <div className={s.heroScene} aria-hidden="true"><Image src={heroArtwork} alt="" fill priority sizes="(max-width: 359px) calc(100vw - 32px), (max-width: 760px) calc(100vw - 40px), (max-width: 1000px) calc(100vw - 56px), (max-width: 1240px) calc(100vw - 80px), 1160px" className={s.heroArtwork} /></div>
         <div className={s.heroContent}>
           <p className={s.heroBrand}>Wise <span>VIP</span></p>
           <h1 id="home-title">把认知，变成长期的复利。</h1>
@@ -82,7 +86,7 @@ export default function Home() {
           <p className={vip.sectionIntro}>从完整文章、群内讨论到观点追踪与研究工具，找到你想深入的问题。</p>
           <div className={s.entries}>
             {entries.map(entry => <article key={entry.href} data-reveal><Link href={entry.href} className={s.entryLink}>
-              <div className={s.artwork}><Image src={entry.image} alt={entry.alt} fill sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1240px) 45vw, 566px" /></div>
+              <div className={s.artwork}><Image src={entry.image} alt={entry.alt} fill sizes={`${entry.imageDisplayWidth}px`} /></div>
               <div className={s.entryBody}>
                 <p className={s.count}>{entry.count}</p><h3>{entry.title}</h3><p>{entry.description}</p>
                 <div className={s.entryFooter}><span className={`${vip.textLink} ${s.entryAction}`}>{entry.action}<ArrowRight size={16} aria-hidden="true" /></span><p className={s.access}>{entry.access}</p></div>
@@ -98,7 +102,7 @@ export default function Home() {
           </div>
           <div className={s.articles}>
             {latestArticles.map(article => <article key={article.slug} data-reveal><Link href={`/article/${article.slug}`} className={s.articleLink}>
-              <div className={s.articleArtwork}><Image src={article.cover} alt={article.coverAlt} fill sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1240px) 45vw, 562px" /></div>
+              <div className={s.articleArtwork}><Image src={getArticleCover(article.cover)} alt={article.coverAlt} fill sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1240px) 45vw, 562px" /></div>
               <div className={s.articleMeta}><time dateTime={article.date}>{article.date.replaceAll("-", ".")}</time><span>约 {article.readingMinutes} 分钟</span></div>
               <h3>{article.title}</h3><p>{article.summary}</p>
               <div className={s.articleFooter}><span>{article.access === "public" ? "公开阅读" : "开放试读 · VIP 阅读全文"}</span><span>阅读文章<ArrowRight size={16} aria-hidden="true" /></span></div>

@@ -7,6 +7,7 @@ import { CopyTextButton } from "@/components/copy-text-button";
 import { getContentViewerTier } from "@/lib/identity/content-viewer";
 import { getEnabledVipPartners } from "@/lib/vip/partners";
 import { perks } from "@/lib/perks-data";
+import { reviewArtwork } from "@/lib/media/portal-artwork";
 import { LandingExperience } from "./landing-experience";
 import { WebsitePreview } from "./preview-media";
 import { HistoryShowcase } from "./history-showcase";
@@ -14,6 +15,8 @@ import { CommunityGallery } from "./community-gallery";
 import { ServiceSymbol } from "./service-symbol";
 import { brokerageChannels, exchangeOrder, faqs, featuredArticle, introductionHref, joinSteps } from "./landing-content";
 import styles from "./vip.module.css";
+
+const mainSiteHref = (path: string) => new URL(path, "https://www.wise-invest.org").href;
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
@@ -37,7 +40,7 @@ const discussionTopics = [
   },
   {
     id: "review", title: "跟踪与复盘", lead: "让每次讨论，都留下判断的过程",
-    image: "/images/vip/topic-review.png", alt: "研究笔记、放大镜与时间线的立体复盘模型",
+    image: reviewArtwork, alt: "研究笔记、放大镜与时间线的立体复盘模型",
     tags: ["观点跟踪", "条件变化", "历史记录"],
     description: "对照原始观点与后续变化，讨论哪些依据仍然成立、哪里需要修正，而不是只看结果。",
   },
@@ -46,7 +49,8 @@ const discussionTopics = [
 export default async function VipPage() {
   const [tier, partners] = await Promise.all([getContentViewerTier(), getEnabledVipPartners()]);
   const isVip = tier === "VIP" || tier === "VIP_PLUS";
-  const accountHref = tier ? "/account/vip" : "/login?callbackUrl=/account/vip";
+  const accountHref = tier ? mainSiteHref("/account/vip") : "/login?callbackUrl=/account/vip";
+  const AccountLink = tier ? "a" : Link;
   // Brokerage keeps its unified submission flow. The database still controls verification availability.
   const hasBrokerage = partners.some(partner => partner.type === "BROKERAGE");
   const exchangePartners = partners.filter(partner => partner.type === "EXCHANGE").sort((a, b) => {
@@ -62,7 +66,7 @@ export default async function VipPage() {
             <h1 id="vip-title">看懂机会，也看清风险。<br /><span>和 Wise 一起，把投资聊透。</span></h1>
             <p className={styles.heroDescription}>从美股到加密，在群里持续讨论、跟踪与复盘。<br />有值得关注的方向，也有一起推敲判断的人。</p>
             <div className={styles.actions}>
-              {isVip ? <Link className={styles.primary} href="/account/vip">进入我的 VIP 中心<ArrowRight /></Link> : <a className={styles.primary} href="#how-it-works">了解加入方式<ArrowRight /></a>}
+              {isVip ? <a className={styles.primary} href={mainSiteHref("/account/vip")}>进入我的 VIP 中心<ArrowRight /></a> : <a className={styles.primary} href="#how-it-works">了解加入方式<ArrowRight /></a>}
               <a className={styles.secondary} href="#vip-history">先看历史战绩<ArrowUpRight size={15} /></a>
             </div>
             <p className={styles.heroFootnote}>群内交流为主 · 网站与点位工具辅助</p>
@@ -82,7 +86,7 @@ export default async function VipPage() {
         </section>
         <HistoryShowcase />
         <section id="vip-tools" tabIndex={-1} aria-labelledby="vip-tools-title" className={`${styles.section} ${styles.toolsSection}`}>
-          <div><p className={styles.eyebrow}>03 / 研究工具</p><h2 id="vip-tools-title" className={styles.sectionHeading}>讨论在群里，<br />研究有工具。</h2><p className={styles.sectionIntro}>CHAIN 跟踪产业与公司，Crypto 辅助查看加密市场。把群里的讨论，延伸到自己的研究里。</p><p className={styles.caption}>公开工具可先体验；会员内容以各页面权限说明为准。</p><Link href="/website" className={styles.textLink}>查看全部网站<ArrowUpRight size={15} /></Link></div>
+          <div><p className={styles.eyebrow}>03 / 研究工具</p><h2 id="vip-tools-title" className={styles.sectionHeading}>讨论在群里，<br />研究有工具。</h2><p className={styles.sectionIntro}>CHAIN 跟踪产业与公司，Crypto 辅助查看加密市场。把群里的讨论，延伸到自己的研究里。</p><p className={styles.caption}>公开工具可先体验；会员内容以各页面权限说明为准。</p><a href={mainSiteHref("/website")} className={styles.textLink}>查看全部网站<ArrowUpRight size={15} /></a></div>
           <div className={styles.toolsWell}>
             <article><WebsitePreview name="Wise CHAIN" src="/images/vip/chain-overview.png" href="https://chain.wise-invest.org/" /><div className={styles.toolCopy}><div><h3>CHAIN</h3><p>产业、公司与关键事件</p></div><a href="https://chain.wise-invest.org/" target="_blank" rel="noopener noreferrer" aria-label="打开 CHAIN" className={styles.toolArrow}><ArrowUpRight size={18} /></a></div></article>
             <article><WebsitePreview name="Wise Crypto" src="/images/vip/crypto-overview.png" href="https://crypto.wise-invest.org/" /><div className={styles.toolCopy}><div><h3>Crypto</h3><p>行情观察与风险工具</p></div><a href="https://crypto.wise-invest.org/" target="_blank" rel="noopener noreferrer" aria-label="打开 Crypto" className={styles.toolArrow}><ArrowUpRight size={18} /></a></div></article>
@@ -105,21 +109,21 @@ export default async function VipPage() {
           <div data-vip-reveal><h2 id="vip-join-title" className={styles.sectionHeading}>想加入，从你的真实账户开始。</h2><p className={styles.sectionIntro}>通过账户核验加入 Wise VIP，面向通过 Wise 合作渠道开户、符合条件的真实用户。我们希望与认真关注市场的朋友长期同行。也可以选择下方的付费 SVIP 方式，无需提交合作账户资料。</p></div>
           <div className={styles.eligibility}>
             <article className={styles.qualification} data-vip-reveal><h3><Building2 aria-hidden="true" />券商账户</h3>
-              {hasBrokerage ? <ul className={styles.platformList}>{brokerageChannels.map(channel => <li key={channel.name}><span>{channel.name}</span>{channel.href ? <Link href={channel.href} className={styles.textLink} aria-label={`${channel.name}：${channel.cta}`}>{channel.cta}<ArrowUpRight size={12} /></Link> : <span className={styles.pending}>{channel.cta}</span>}</li>)}</ul> : <p className={styles.sectionIntro}>券商账户核验暂未开放，请以账户中心的可选渠道为准。</p>}
-              <div className={styles.conditions}><strong>申请条件</strong><p>通过 Wise 合作渠道<strong className="!inline">开户、入金并激活账户</strong>后，再提交核验。</p></div><Link href="/perk/broker" className={styles.textLink}>了解券商合作渠道<ArrowUpRight size={15} /></Link>
+              {hasBrokerage ? <ul className={styles.platformList}>{brokerageChannels.map(channel => <li key={channel.name}><span>{channel.name}</span>{channel.href ? <a href={mainSiteHref(channel.href)} className={styles.textLink} aria-label={`${channel.name}：${channel.cta}`}>{channel.cta}<ArrowUpRight size={12} /></a> : <span className={styles.pending}>{channel.cta}</span>}</li>)}</ul> : <p className={styles.sectionIntro}>券商账户核验暂未开放，请以账户中心的可选渠道为准。</p>}
+              <div className={styles.conditions}><strong>申请条件</strong><p>通过 Wise 合作渠道<strong className="!inline">开户、入金并激活账户</strong>后，再提交核验。</p></div><a href={mainSiteHref("/perk/broker")} className={styles.textLink}>了解券商合作渠道<ArrowUpRight size={15} /></a>
             </article>
             <article className={styles.qualification} data-vip-reveal><h3><CandlestickChart aria-hidden="true" />交易所账户</h3>
               <ul className={styles.platformList}>{exchangePartners.map(partner => {
                 const rawHref = perks.find(perk => perk.category === "Crypto" && perk.id === partner.slug)?.tutorialLink;
-                const href = rawHref?.replace(/^https:\/\/www\.wise-invest\.org(?=\/)/, "");
-                return <li key={partner.slug}><span>{partner.name}</span>{href ? <Link href={href} className={styles.textLink} aria-label={`${partner.name}：查看教程`}>查看教程<ArrowUpRight size={12} /></Link> : null}</li>;
+                const href = rawHref ? mainSiteHref(rawHref) : undefined;
+                return <li key={partner.slug}><span>{partner.name}</span>{href ? <a href={href} className={styles.textLink} aria-label={`${partner.name}：查看教程`}>查看教程<ArrowUpRight size={12} /></a> : null}</li>;
               })}</ul>
               {exchangePartners.length === 0 ? <p className={styles.sectionIntro}>交易所账户核验暂未开放，请以账户中心为准。</p> : null}
-              <div className={styles.conditions}><strong>申请条件</strong><p>账户必须<strong className="!inline">绑定 Wise 邀请关系</strong>，并<strong className="!inline">入金 1000U、完成 10000U 合约交易</strong>后，再提交核验。</p></div><Link href="/perk/crypto" className={styles.textLink}>了解交易所合作渠道<ArrowUpRight size={15} /></Link>
+              <div className={styles.conditions}><strong>申请条件</strong><p>账户必须<strong className="!inline">绑定 Wise 邀请关系</strong>，并<strong className="!inline">入金 1000U、完成 10000U 合约交易</strong>后，再提交核验。</p></div><a href={mainSiteHref("/perk/crypto")} className={styles.textLink}>了解交易所合作渠道<ArrowUpRight size={15} /></a>
             </article>
           </div>
           <h3 className={styles.stepsTitle}>加入流程，只需 5 步。</h3><ol className={styles.steps}>{joinSteps.map(([title, description], index) => <li key={title}><span className={styles.stepNumber}>{String(index + 1).padStart(2, "0")}</span><h4>{title}</h4><p>{description}</p></li>)}</ol>
-          <div className={styles.joinCallout} data-vip-reveal><div><h3>已经准备好了？</h3><p>提交真实的合作账户，人工核验通过后即可加入。<br />不是填入邀请码，就自动获得 VIP。</p></div><Link className={styles.primary} href={accountHref}>{isVip ? "查看我的 VIP 权益" : tier ? "提交账户核验" : "登录并提交核验"}<ArrowRight /></Link></div>
+          <div className={styles.joinCallout} data-vip-reveal><div><h3>已经准备好了？</h3><p>提交真实的合作账户，人工核验通过后即可加入。<br />不是填入邀请码，就自动获得 VIP。</p></div><AccountLink className={styles.primary} href={accountHref}>{isVip ? "查看我的 VIP 权益" : tier ? "提交账户核验" : "登录并提交核验"}<ArrowRight /></AccountLink></div>
           <p className={styles.joinNote}><ShieldCheck size={15} />请选择自己真实需要、适合所在地区的账户，量力参与；无需为获得 VIP 使用杠杆或承担不适合自己的风险。</p>
         </section>
         <section id="svip" tabIndex={-1} aria-labelledby="svip-title" className={`${styles.section} ${styles.svipSection}`}>
@@ -132,8 +136,8 @@ export default async function VipPage() {
         </section>
         <section id="vip-faq" tabIndex={-1} aria-labelledby="vip-faq-title" className={`${styles.section} ${styles.faqSection}`}>
           <h2 id="vip-faq-title" className={styles.sectionHeading}>加入之前，你可能还想知道。</h2>
-          <div className={styles.faqList}>{faqs.map((faq, index) => <details key={faq.question} open={index === 0}><summary>{faq.question}<Plus aria-hidden="true" /></summary><div className={styles.faqAnswer}><p>{faq.answer}</p>{faq.href ? <Link href={faq.href} className={styles.textLink}>{faq.linkLabel}<ArrowUpRight size={14} /></Link> : null}</div></details>)}</div>
-          <div className={styles.finalInvite} data-vip-reveal><h2>期待与你，一起把投资做下去。</h2><p>先了解，再决定。我们更期待长期、认真、有价值的同行。</p><div className={styles.actions}><a href="#how-it-works" className={styles.primary}>查看加入方式<ArrowRight /></a><CommunityDialogButton className={styles.communityButton}><MessageCircle size={16} />先加入免费群</CommunityDialogButton></div><Link href={introductionHref} className={`${styles.textLink} mt-6`}>阅读完整 VIP 体系介绍<ArrowUpRight size={14} /></Link></div>
+          <div className={styles.faqList}>{faqs.map((faq, index) => <details key={faq.question} open={index === 0}><summary>{faq.question}<Plus aria-hidden="true" /></summary><div className={styles.faqAnswer}><p>{faq.answer}</p>{faq.href ? <a href={mainSiteHref(faq.href)} className={styles.textLink}>{faq.linkLabel}<ArrowUpRight size={14} /></a> : null}</div></details>)}</div>
+          <div className={styles.finalInvite} data-vip-reveal><h2>期待与你，一起把投资做下去。</h2><p>先了解，再决定。我们更期待长期、认真、有价值的同行。</p><div className={styles.actions}><a href="#how-it-works" className={styles.primary}>查看加入方式<ArrowRight /></a><CommunityDialogButton className={styles.communityButton}><MessageCircle size={16} />先加入免费群</CommunityDialogButton></div><a href={mainSiteHref(introductionHref)} className={`${styles.textLink} mt-6`}>阅读完整 VIP 体系介绍<ArrowUpRight size={14} /></a></div>
         </section>
       </LandingExperience>
     </div>

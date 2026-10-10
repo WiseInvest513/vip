@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, ArrowUpRight, BookOpen, Clock3 } from "lucide-react";
 import type { CuratedDiscussion } from "@/lib/portal/curated-types";
+import { wiseVipIcon } from "@/lib/media/brand";
 import { Footer } from "@/components/portal/shared";
 import { AmbientSurface } from "@/app/vip/ambient-surface";
 import vip from "@/app/vip/vip.module.css";
@@ -32,7 +33,7 @@ export function CuratedArticle({ discussion, nextDiscussion, vipOnly }: { discus
         <h1>{discussion.title}</h1>
         <p className={a.standfirst}>{discussion.description}</p>
         <div className={a.byline}>
-          <Image src="/brand/wisevip-icon.png" alt="" width={29} height={29} />
+          <Image src={wiseVipIcon} alt="" width={29} height={29} sizes="29px" />
           <span><strong>Wise</strong><small>群内讨论 · 编辑整理</small></span>
           <span className={a.readTime}><Clock3 size={13} /> {discussion.readingMinutes} 分钟</span>
           <span className={a.openBadge}>{vipOnly ? "VIP 专享" : "免费阅读"}</span>

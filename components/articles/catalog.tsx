@@ -6,6 +6,7 @@ import Link from "next/link";
 import { ArrowRight, BookOpen, Grid2X2, List, LockKeyhole, Search, X } from "lucide-react";
 import type { ArticleCategory, ArticlePreview } from "@/lib/articles/types";
 import { articleCategories, categoryHref } from "@/lib/articles/categories";
+import { getArticleCover } from "@/lib/media/article-covers";
 import vip from "@/app/vip/vip.module.css";
 import s from "./articles.module.css";
 
@@ -38,7 +39,7 @@ export function ArticleCatalog({ articles, category }: { articles: ArticlePrevie
       {matching.length ? <div className={`${s.cards} ${view === "list" ? s.listView : ""}`}>
         {matching.map(article => <article key={article.slug} className={s.card}>
           <Link href={`/article/${article.slug}`} className={s.cardLink}>
-            <div className={s.cardCover}><Image src={article.cover} alt={article.coverAlt} fill sizes="(max-width: 600px) 90vw, (max-width: 900px) 70vw, 440px" /></div>
+            <div className={s.cardCover}><Image src={getArticleCover(article.cover)} alt={article.coverAlt} fill sizes="(max-width: 600px) 90vw, (max-width: 900px) 70vw, 440px" /></div>
             <div className={s.cardCopy}>
               <div className={s.meta}><time dateTime={article.date}>{article.date.replaceAll("-", ".")}</time><span>{article.readingMinutes} 分钟阅读</span></div>
               <h3>{article.title}</h3><p>{article.summary}</p>

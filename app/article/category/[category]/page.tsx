@@ -2,6 +2,10 @@ import { notFound } from "next/navigation";
 import { ArticleLibrary } from "@/components/articles/library";
 import { articleCategories, categoryHref } from "@/lib/articles/categories";
 type Props = { params: Promise<{ category: string }> };
+export const dynamicParams = false;
+export function generateStaticParams() {
+  return articleCategories.map(({ id }) => ({ category: id }));
+}
 export async function generateMetadata({ params }: Props) {
   const { category } = await params;
   const selected = articleCategories.find(item => item.id === category);

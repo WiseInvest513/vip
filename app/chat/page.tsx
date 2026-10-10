@@ -11,6 +11,7 @@ import { getContentViewerTier } from "@/lib/identity/content-viewer";
 import { selectPrinciplesForViewer } from "@/lib/auth/principle-access";
 import { isFreeDiscussion } from "@/lib/auth/discussion-access";
 import { curatedDiscussions } from "@/lib/portal/curated-discussions";
+import { discussionArtwork } from "@/lib/media/portal-artwork";
 import s from "@/components/curated/curated.module.css";
 
 export const metadata = {
@@ -27,7 +28,7 @@ export default async function Chat() {
   const access = selectPrinciplesForViewer(principles, tier);
   const previews = curatedDiscussions.map(({ slug, number, category, englishCategory, title, description, readingMinutes, keywords, outcomes }) => ({ slug, number, category, englishCategory, title, description, readingMinutes, keywords, outcomes, vipOnly: !isFreeDiscussion(slug) }));
   return <JoinFrame className={s.page}>
-    <JoinHero title={<>先有自己的准则，<br />再做市场的判断。</>} description="我们聊公司，也聊市场；聊为什么看好，更聊什么时候需要重新判断。从真实的提问里，把投资这件事慢慢想明白。" action="先读十条准则" href="#principles" image="/images/portal/chat-hero.png" alt="精选讨论与研究笔记" secondary />
+    <JoinHero title={<>先有自己的准则，<br />再做市场的判断。</>} description="我们聊公司，也聊市场；聊为什么看好，更聊什么时候需要重新判断。从真实的提问里，把投资这件事慢慢想明白。" action="先读十条准则" href="#principles" image={discussionArtwork} alt="精选讨论与研究笔记" secondary />
     <div className={s.topics}><span>投资原则</span><span>公司研究</span><span>宏观观察</span><span>交易复盘</span></div>
     <AmbientSurface className={frame.surface}>
     <nav className={s.routeStrip} aria-label="精选讨论阅读顺序"><a href="#principles"><span>01</span>读十条准则 <ArrowDown size={12} /></a><a href="#discussions"><span>02</span>进入真实讨论 <ArrowDown size={12} /></a><span>从一句话，读到背后的思考。</span></nav>

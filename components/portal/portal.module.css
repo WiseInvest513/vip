@@ -82,6 +82,8 @@
 .header nav a {color:var(--muted);font-weight:550}
 .header nav a[aria-current] {font-weight:750}
 .headerTools {font-family:inherit}
+.accountSlot {display:flex;align-items:center;min-height:40px}
+.accountPending {display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:40px;padding:0 10px;border:1px solid var(--line);border-radius:12px;color:var(--muted);font-size:12px;white-space:nowrap}
 .themeToggle,.mainSite,.loginButton {border-radius:12px;font-weight:650}
 .themeToggle:hover,.mainSite:hover {background:var(--soft)}
 .loginButton {background:var(--yellow);border:1px solid var(--yellow);color:#171a21}
@@ -147,3 +149,12 @@
 @media(min-width:761px) and (max-width:1150px){.header{flex-wrap:wrap;height:auto;min-height:72px;padding-top:18px;gap:14px}.header nav{order:3;width:100%;height:48px;justify-content:flex-start;overflow-x:auto;gap:28px}.header nav a[aria-current]:after{bottom:4px}}
 @media(min-width:1151px){.header nav{gap:24px}}
 @media(max-width:760px){.header nav{min-width:0;overflow-x:auto;justify-content:flex-start;scrollbar-width:thin}.header nav a{flex-shrink:0}}
+
+/* Immediate route feedback uses the existing gold underline without animation. */
+.logo {position:relative}
+.navigationPending {position:absolute;left:0;right:0;bottom:13px;height:2px;background:var(--gold);opacity:0;pointer-events:none}
+.navigationPending[data-pending="true"] {opacity:1}
+.logo .navigationPending {bottom:-7px}
+.navigationStatus {position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(min-width:761px) and (max-width:1150px){.header nav .navigationPending{bottom:4px}}
+@media(max-width:760px){.header nav .navigationPending{bottom:2px}}

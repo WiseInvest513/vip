@@ -10,11 +10,22 @@ export function Motion({children}: {children: ReactNode}) {
   nodes.forEach(n=>observer.observe(n));
   const artwork=root.current?.querySelector<HTMLElement>("[data-parallax]");
   let frame=0;
-  const update=()=>{frame=0;if(!artwork)return;const bounds=artwork.getBoundingClientRect();const shift=media.matches?0:Math.max(-10,Math.min(10,(window.innerHeight/2-bounds.top-bounds.height/2)*.025));artwork.style.setProperty("--art-shift",`${shift}px`);};
-  const scroll=()=>{if(!frame)frame=requestAnimationFrame(update);};
-  window.addEventListener("scroll",scroll,{passive:true});update();
-  const stop=()=>{if(media.matches)animations.forEach(a=>a.cancel());update();};media.addEventListener("change",stop);
-  return()=>{observer.disconnect();window.removeEventListener("scroll",scroll);cancelAnimationFrame(frame);animations.forEach(a=>a.cancel());media.removeEventListener("change",stop);};
+  let inView=false;
+  let lastShift="";
+  const active=()=>Boolean(artwork&&inView&&!media.matches&&document.visibilityState==="visible");
+  const writeShift=(shift:number)=>{if(!artwork)return;const value=`${shift.toFixed(2)}px`;if(value!==lastShift){artwork.style.setProperty("--art-shift",value);lastShift=value;}};
+  const cancelFrame=()=>{cancelAnimationFrame(frame);frame=0;};
+  const update=()=>{frame=0;if(!artwork||!active())return;const bounds=artwork.getBoundingClientRect();writeShift(Math.max(-10,Math.min(10,(window.innerHeight/2-bounds.top-bounds.height/2)*.025)));};
+  const scroll=()=>{if(active()&&!frame)frame=requestAnimationFrame(update);};
+  const syncVisibility=()=>{if(active())scroll();else cancelFrame();};
+  const artworkObserver=artwork?new IntersectionObserver(([entry])=>{inView=entry.isIntersecting&&entry.intersectionRect.height>0&&entry.intersectionRect.width>0;syncVisibility();},{threshold:.01}):null;
+  if(artwork){
+   artworkObserver?.observe(artwork);
+   window.addEventListener("scroll",scroll,{passive:true});
+   document.addEventListener("visibilitychange",syncVisibility);
+  }
+  const stop=()=>{if(media.matches){animations.forEach(a=>a.cancel());cancelFrame();writeShift(0);}else scroll();};media.addEventListener("change",stop);
+  return()=>{observer.disconnect();artworkObserver?.disconnect();if(artwork){window.removeEventListener("scroll",scroll);document.removeEventListener("visibilitychange",syncVisibility);}cancelFrame();animations.forEach(a=>a.cancel());media.removeEventListener("change",stop);};
  },[]);
  return <div ref={root}>{children}</div>;
 }
