@@ -6,9 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "preview": "WISE_VIP_LOCAL_PREVIEW=1 next start --hostname 127.0.0.1 --port 3031",
     "test:auth": "tsc lib/auth/wise-id.ts lib/auth/membership.ts lib/auth/principle-access.ts lib/auth/discussion-access.ts --outDir .auth-test --module commonjs --target ES2022 --skipLibCheck && node --test tests/auth.cjs",
     "test:auth:integration": "node tests/oidc-session.mjs",
-    "test:articles": "tsc lib/auth/article-access.ts lib/auth/membership.ts --outDir .auth-test --module commonjs --target ES2022 --skipLibCheck && node --test tests/article-access.cjs"
+    "test:articles": "tsc lib/auth/article-access.ts lib/auth/local-article-preview.ts lib/auth/membership.ts --outDir .auth-test --module commonjs --target ES2022 --skipLibCheck && node --test tests/article-access.cjs"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "1.1.15",

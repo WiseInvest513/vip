@@ -88,6 +88,10 @@
 .prose blockquote { border-left: 3px solid var(--vip-gold); padding: 18px 22px 1px; background: var(--vip-soft); border-radius: 0 10px 10px 0; margin: 26px 0; }
 .prose blockquote p { font-size: 15px; }
 .prose strong { font-weight: 650; }
+.prose figure { margin: 28px 0; }
+.prose img { max-width: 100%; height: auto; border-radius: 12px; }
+.prose figure img { display: block; width: 100%; border: 1px solid var(--vip-line); }
+.prose figcaption { margin-top: 10px; color: var(--vip-muted); font-size: 13px; line-height: 1.8; }
 .prose hr { border-color: var(--vip-line); margin: 34px 0; }
 .prose a:not([class]) { color: var(--vip-gold); text-decoration: underline; text-underline-offset: 3px; }
 .prose [role=region] { overflow-x: auto; margin-bottom: 24px; }

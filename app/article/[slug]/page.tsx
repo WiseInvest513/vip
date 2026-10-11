@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { headers } from "next/headers";
 import { ArrowLeft, ArrowRight, Clock3, LockKeyhole } from "lucide-react";
 import { JoinFrame } from "@/components/portal/join-frame";
 import { AmbientSurface } from "@/app/vip/ambient-surface";
@@ -9,6 +10,7 @@ import { articles, getArticle } from "@/lib/articles/content";
 import { articleCategories, categoryHref } from "@/lib/articles/categories";
 import { getContentViewerTier } from "@/lib/identity/content-viewer";
 import { canReadArticle } from "@/lib/auth/article-access";
+import { isLocalArticlePreview } from "@/lib/auth/local-article-preview";
 import { wiseAvatar } from "@/lib/media/wise-avatar";
 import vip from "@/app/vip/vip.module.css";
 import s from "@/components/articles/articles.module.css";
@@ -25,8 +27,9 @@ export default async function ArticlePage({ params }: Props) {
   const { slug } = await params;
   const article = getArticle(slug);
   if (!article) notFound();
-  const tier = await getContentViewerTier();
-  const canRead = canReadArticle(article.access, tier);
+  const localPreview = isLocalArticlePreview((await headers()).get("host"), process.env);
+  const tier = localPreview ? null : await getContentViewerTier();
+  const canRead = localPreview || canReadArticle(article.access, tier);
   const visibleBody = canRead ? article.body : article.preview;
   const outline = articleOutline(visibleBody);
   const related = articles.find(item => item.slug !== slug);
@@ -35,7 +38,7 @@ export default async function ArticlePage({ params }: Props) {
     <header className={s.articleHeader}>
       <div className={s.articleCategories}>{article.categories.map(id => <Link key={id} href={categoryHref(id)}>{articleCategories.find(item => item.id === id)?.name}</Link>)}</div>
       <h1>{article.title}</h1>
-      <div className={s.byline}><Image src={wiseAvatar} alt="" width={40} height={40} sizes="40px" /><div><strong>WiseInvest</strong><time dateTime={article.date}>{article.date.replaceAll("-", ".")} 发布</time></div><span><Clock3 size={15} />约 {article.readingMinutes} 分钟</span><span className={s.accessBadge}>{article.access === "public" ? "公开文章" : canRead ? "VIP 完整阅读" : "VIP 文章 · 公开试读"}</span></div>
+      <div className={s.byline}><Image src={wiseAvatar} alt="" width={40} height={40} sizes="40px" /><div><strong>WiseInvest</strong><time dateTime={article.date}>{article.date.replaceAll("-", ".")} 发布</time></div><span><Clock3 size={15} />约 {article.readingMinutes} 分钟</span><span className={s.accessBadge}>{localPreview ? "本地预览 · 完整文章" : article.access === "public" ? "公开文章" : canRead ? "VIP 完整阅读" : "VIP 文章 · 公开试读"}</span></div>
     </header>
     <div className={s.readerLayout}>
       <aside className={s.outline}><p>本文目录</p><nav className={s.desktopOutline} aria-label="文章章节">{outline.map(item => <a key={item.id} href={`#${item.id}`}>{item.title}</a>)}{!canRead && <a href="#continue-reading"><LockKeyhole size={13} />继续阅读全文</a>}</nav><details className={s.mobileOutline}><summary>本文目录<span>展开章节</span></summary><nav aria-label="文章章节">{outline.map(item => <a key={item.id} href={`#${item.id}`}>{item.title}</a>)}{!canRead && <a href="#continue-reading"><LockKeyhole size={13} />继续阅读全文</a>}</nav></details><Link href="/article">返回文章目录<ArrowLeft size={13} /></Link></aside>

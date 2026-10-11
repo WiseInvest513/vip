@@ -4,6 +4,14 @@ import type { Root, Strong, Text } from "mdast";
 import type { Node, Parent } from "unist";
 import type { VFile } from "vfile";
 
+const illustrationSizes: Record<string, { width: number; height: number }> = {
+  "/images/articles/blackstone-ai-commissioning.webp": { width: 1600, height: 900 },
+  "/images/articles/blackstone-ai-workflow.webp": { width: 1600, height: 900 },
+  "/images/articles/blackstone-ai-returns.webp": { width: 1600, height: 900 },
+  "/images/articles/blackstone-ai-adoption.webp": { width: 1600, height: 900 },
+  "/images/articles/blackstone-ai-research.webp": { width: 1600, height: 900 },
+};
+
 // CommonMark leaves **中文。**后文 as plain text because punctuation touches
 // the closing delimiter. Repair only literal Chinese text nodes, never source
 // HTML, escaped delimiters, inline code or fenced code. The stored text and its
@@ -56,6 +64,15 @@ export function articleOutline(body: string) {
 export function ArticleMarkdown({ body }: { body: string }) {
   return <ReactMarkdown remarkPlugins={[remarkGfm, remarkChineseStrong, remarkHeadingIds]} components={{
     h1: ({ node, ...props }) => <h2 {...props} />,
+    p: ({ node, children, ...props }) => {
+      const child = node?.children.length === 1 ? node.children[0] : undefined;
+      if (child?.type === "element" && child.tagName === "img") {
+        const caption = child.properties.title;
+        return <figure>{children}{typeof caption === "string" && <figcaption>{caption}</figcaption>}</figure>;
+      }
+      return <p {...props}>{children}</p>;
+    },
+    img: ({ node, ...props }) => <img {...props} {...(typeof props.src === "string" ? illustrationSizes[props.src] : {})} loading="lazy" decoding="async" />,
     table: ({ node, ...props }) => <div tabIndex={0} role="region" aria-label="文章数据表格"><table {...props} /></div>,
     a: ({ node, ...props }) => <a {...props} rel="noopener noreferrer" />,
   }}>{body}</ReactMarkdown>;

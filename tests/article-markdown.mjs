@@ -28,7 +28,14 @@ try {
   const unsafe = render('<script>alert(1)</script>\n\n[坏链接](javascript:alert%281%29)');
   assert.ok(!unsafe.includes('<script>'));
   assert.ok(!unsafe.includes('href="javascript:'));
-  console.log('PASS Chinese bold rendering, unchanged heading anchors/code/escaped text, and safe HTML/URLs');
+  const illustration = render('![设备交付与调试](/images/articles/blackstone-ai-commissioning.webp "概念示意：从投入到回款。")');
+  assert.ok(illustration.startsWith('<figure><img'));
+  assert.ok(illustration.includes('<figcaption>概念示意：从投入到回款。</figcaption></figure>'));
+  assert.ok(illustration.includes('width="1600" height="900"'));
+  assert.ok(illustration.includes('loading="lazy" decoding="async"'));
+  assert.ok(!illustration.includes('<p><figure>'));
+  assert.ok(render('正文 ![图标](/icon.png) 继续。').startsWith('<p>正文'));
+  console.log('PASS Chinese bold, heading anchors, safe HTML/URLs, and lazy illustrations with valid captions');
 } finally {
   await rm(outputUrl, { force: true });
 }

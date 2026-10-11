@@ -49,6 +49,7 @@ async function request(url,{authenticated=true,headers={},signal}={}){const loca
 const researchArticles=[
  {slug:'Kcr8I81t',tail:'美联储会继续改变政策，市场也会继续改变预期。',preview:'今天想和大家认真聊一次美联储。'},
  {slug:'WGa8Mm2t',tail:'以上，就是目前我对于整个市场比较完整的一次思考，也算是 Wise VIP 的第一篇正式市场文章。',preview:'今天给大家推送一篇我们 VIP 体系正式上线之后的第一篇文章。'},
+ {slug:'blackstone-ai-age-of-discovery',tail:'AI依然是我愿意持续投入研究、等待合适价格并承担风险的核心方向。',preview:'这两个案例分别对应降低已有业务成本，以及增加新收入。'},
 ];
 function decodeTransportText(text){
  const entities={amp:'&',lt:'<',gt:'>',quot:'"',apos:"'"};
@@ -139,7 +140,7 @@ async function assertResearchAccess(allowed,label,{authenticated=true}={}){
   assert.equal(text.includes(article.tail),allowed,`${label}: ${article.slug} full-text boundary in ${transport}`);
   assert.equal(text.includes('以上为公开试读。VIP 可阅读后续分析与完整结论'),!allowed,`${label}: ${article.slug} paywall in ${transport}`);
  }
- console.log(`PASS ${label}: both research articles ${allowed?'include the full ending':'exclude protected text'} in HTML and RSC`);
+ console.log(`PASS ${label}: ${researchArticles.length} research articles ${allowed?'include the full ending':'exclude protected text'} in HTML and RSC`);
 }
 try{
  for(let i=0;i<90;i++){try{if((await fetch(base+'/login')).ok)break;}catch{}await new Promise(r=>setTimeout(r,200));}

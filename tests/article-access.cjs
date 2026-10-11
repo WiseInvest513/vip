@@ -2,6 +2,21 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { canReadArticle } = require('../.auth-test/article-access.js');
 const { verifyMembership } = require('../.auth-test/membership.js');
+const { isLocalArticlePreview } = require('../.auth-test/local-article-preview.js');
+
+test('full local preview requires explicit opt-in and loopback, never a deployed environment', () => {
+  const enabled = { WISE_VIP_LOCAL_PREVIEW: '1' };
+  for (const host of ['localhost:3031', '127.0.0.1:3031', '[::1]:3031']) {
+    assert.equal(isLocalArticlePreview(host, enabled), true);
+    assert.equal(isLocalArticlePreview(host, {}), false);
+    assert.equal(isLocalArticlePreview(host, { ...enabled, VERCEL: '1' }), false);
+    assert.equal(isLocalArticlePreview(host, { ...enabled, CI: 'true' }), false);
+  }
+  for (const host of [null, '', 'vip.wise-invest.org', 'localhost.evil.test', '127.0.0.1.evil.test', 'localhost:3031,evil.test']) {
+    assert.equal(isLocalArticlePreview(host, enabled), false);
+  }
+  assert.equal(isLocalArticlePreview('localhost:3031', { WISE_VIP_LOCAL_PREVIEW: '0' }), false);
+});
 
 test('public articles remain readable to every viewer', () => {
   for (const tier of [null, 'MEMBER', 'VIP', 'VIP_PLUS', 'ADMIN', 'vip', 'VIP_EXPIRED', '']) {
