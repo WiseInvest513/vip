@@ -1,0 +1,30 @@
+.channels, .support { margin-top: 38px; padding-top: 30px; border-top: 1px solid var(--vip-line); scroll-margin-top: 110px; }
+.heading > span { font-size: 12px; color: var(--vip-gold); }
+.heading h3 { margin-top: 9px; font-size: 22px; line-height: 1.5; font-weight: 650; letter-spacing: -.025em; }
+.heading > p { margin-top: 10px; color: var(--vip-muted); font-size: 14px; line-height: 1.85; }
+.channelGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; margin-top: 26px; }
+.channelGrid article { display: flex; flex-direction: column; min-width: 0; border-left: 1px solid var(--vip-line); padding-left: 22px; }
+.channelGrid article:first-child { padding-left: 0; border-left: 0; }
+.channelGrid svg { color: var(--vip-gold); flex-shrink: 0; }
+.channelGrid h4 { font-size: 17px; font-weight: 650; margin-top: 16px; }
+.channelGrid article > span { font-size: 12px; color: var(--vip-gold); margin-top: 6px; }
+.channelGrid p, .steps p, .readings p { font-size: 14px; color: var(--vip-muted); line-height: 1.9; margin-top: 12px; }
+.channelGrid details { margin-block: 15px 20px; }
+.channelGrid summary { cursor: pointer; font-size: 13px; color: var(--vip-text); }
+.channelGrid a, .readings a, .chain { display: inline-flex; gap: 8px; align-items: center; color: var(--vip-gold); font-size: 13px; font-weight: 600; }
+.channelGrid a { margin-top: auto; }
+.channelGrid a:hover, .readings a:hover, .chain:hover, .sourceRow a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.sourceRow { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 25px; color: var(--vip-gold); font-size: 11px; }
+.sourceRow > span { color: var(--vip-muted); }
+.note { color: var(--vip-muted); font-size: 11px; line-height: 1.85; margin-top: 12px; }
+.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 24px; }
+.steps li { min-width: 0; }
+.steps li > span { display: inline-block; color: var(--vip-gold); font-size: 12px; border-bottom: 1px solid var(--vip-gold-line); padding-bottom: 6px; }
+.steps h4 { font-size: 17px; margin-top: 12px; font-weight: 650; }
+.readingHeading { display: flex; align-items: center; gap: 9px; color: var(--vip-gold); font-size: 13px; margin-top: 28px; }
+.readings { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 15px; }
+.readings article { padding: 22px; background: var(--vip-bg); border: 1px solid var(--vip-line); border-radius: 14px; }
+.readings h4 { font-size: 17px; font-weight: 650; }
+.readings p { margin-bottom: 18px; }
+.chain { margin-top: 18px; }
+@media (max-width: 767px) { .channelGrid, .steps, .readings { grid-template-columns: 1fr; } .channelGrid article { border-left: 0; padding-left: 0; border-bottom: 1px solid var(--vip-line); padding-bottom: 22px; } .channelGrid article:last-child { border-bottom: 0; padding-bottom: 0; } .heading h3 { font-size: 20px; } .channels, .support { margin-top: 28px; padding-top: 24px; } .steps { gap: 18px; } .steps li { display: grid; grid-template-columns: 25px 1fr; gap: 0 12px; } .steps li > span { grid-row: 1 / 3; align-self: start; } .steps h4 { margin-top: 0; } .steps p { margin-top: 6px; } .readings article { padding: 20px; } }

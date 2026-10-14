@@ -1,0 +1,50 @@
+.planner { padding: 28px 30px 22px; border: 1px solid var(--vip-line); border-radius: 18px; background: var(--vip-bg); color: var(--vip-text); min-width: 0; }
+.layout { display: grid; grid-template-columns: 180px minmax(0, 1fr); align-items: center; gap: 40px; }
+.chart { position: relative; width: 180px; height: 180px; }
+.chart svg { display: block; width: 100%; height: 100%; }
+.chart circle { fill: none; stroke-width: 21px; }
+.dca { stroke: var(--vip-gold); }
+.longTerm { stroke: var(--vip-muted); }
+.margin { stroke: var(--vip-accent); }
+.chartCenter { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; }
+.chartCenter > span { color: var(--vip-muted); font-size: 11px; }
+.chartCenter > strong { font-family: var(--font-nunito), sans-serif; font-size: 28px; font-weight: 750; line-height: 1.2; letter-spacing: -.035em; font-variant-numeric: tabular-nums; }
+.chartCenter > strong span { font-size: 15px; font-weight: 600; }
+.chartCenter > small { font-size: 10px; color: var(--vip-muted); }
+.allocations { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; min-width: 0; }
+.allocation { min-width: 0; padding-left: 24px; border-left: 1px solid var(--vip-line); }
+.allocation dt { display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 650; line-height: 1.7; }
+.allocation dt i { width: 7px; height: 7px; flex-shrink: 0; border-radius: 2px; }
+.dcaDot { background: var(--vip-gold); }
+.longTermDot { background: var(--vip-muted); }
+.marginDot { background: var(--vip-accent); }
+.percentage { display: block; margin-top: 8px; font-family: var(--font-nunito), sans-serif; font-size: 44px; font-weight: 750; letter-spacing: -.04em; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.percentage span { margin-left: 2px; font-size: 22px; font-weight: 600; }
+.amount { display: block; margin-top: 7px; color: var(--vip-gold); font-size: 13px; font-weight: 600; line-height: 1.7; }
+.detail { color: var(--vip-muted); font-size: 13px; margin-top: 5px; line-height: 1.8; }
+.notes { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--vip-line); font-size: 13px; line-height: 1.9; color: var(--vip-muted); }
+.notes strong { color: var(--vip-text); font-weight: 600; }
+.notes p + p { margin-top: 3px; }
+@media (max-width: 1023px) {
+  .layout { grid-template-columns: 160px minmax(0, 1fr); gap: 24px; }
+  .chart { width: 160px; height: 160px; }
+  .allocations { gap: 16px; }
+  .allocation { padding-left: 16px; }
+  .allocation dt { font-size: 14px; gap: 6px; }
+  .percentage { font-size: 38px; }
+}
+@media (max-width: 767px) {
+  .planner { padding: 20px; }
+  .layout { grid-template-columns: 1fr; gap: 22px; }
+  .chart { width: 156px; height: 156px; margin-inline: auto; }
+  .chartCenter > strong { font-size: 26px; }
+  .allocations { gap: 12px; }
+  .allocation { padding-left: 0; border: 0; }
+  .allocation dt { flex-wrap: wrap; gap: 5px; font-size: 13px; }
+  .allocation dt i { width: 5px; height: 5px; }
+  .percentage { margin-top: 8px; font-size: 34px; }
+  .percentage span { font-size: 18px; }
+  .amount { font-size: 12px; margin-top: 5px; }
+  .detail { font-size: 12px; line-height: 1.75; margin-top: 6px; }
+  .notes { font-size: 12px; margin-top: 20px; padding-top: 15px; }
+}

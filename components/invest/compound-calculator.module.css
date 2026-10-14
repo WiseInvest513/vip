@@ -1,0 +1,79 @@
+.calculator { min-width: 0; margin-top: 28px; padding: 28px; border: 1px solid var(--vip-line); border-radius: 18px; background: var(--vip-bg); color: var(--vip-text); }
+.heading { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.eyebrow { color: var(--vip-gold); font-size: 11px; font-weight: 650; letter-spacing: .035em; }
+.heading h3 { margin-top: 8px; font-size: 23px; font-weight: 650; letter-spacing: -.025em; line-height: 1.5; }
+.unit { color: var(--vip-muted); font-size: 12px; flex-shrink: 0; }
+.fields { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 26px; }
+.field { min-width: 0; }
+.field label { display: block; margin-bottom: 8px; font-size: 13px; font-weight: 550; }
+.inputWrap { display: flex; align-items: center; border: 1px solid var(--vip-line); border-radius: 9px; background: var(--vip-bg); padding-right: 12px; }
+.inputWrap:focus-within { outline: 2px solid var(--vip-gold); outline-offset: 2px; }
+.inputWrap input { min-width: 0; width: 100%; padding: 12px; border: 0; border-radius: 9px; background: transparent; color: var(--vip-text); font: inherit; font-size: 19px; font-weight: 600; font-variant-numeric: tabular-nums; outline: none; }
+.inputWrap > span { font-size: 11px; color: var(--vip-muted); flex-shrink: 0; }
+.bounds { margin-top: 9px; color: var(--vip-muted); font-size: 11px; line-height: 1.8; }
+.scenarios { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 20px; }
+.scenarios > span { color: var(--vip-muted); font-size: 12px; margin-right: 4px; }
+.scenarios button { padding: 7px 10px; border: 1px solid var(--vip-line); border-radius: 7px; background: var(--vip-bg); color: var(--vip-muted); font-size: 12px; cursor: pointer; }
+.scenarios button[aria-pressed="true"] { color: var(--vip-gold); border-color: var(--vip-gold); background: var(--vip-warm); }
+.scenarios button:hover { border-color: var(--vip-gold); }
+.scenarios button:focus-visible, .method summary:focus-visible, .footer a:focus-visible { outline: 2px solid var(--vip-gold); outline-offset: 4px; }
+.results { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; padding-block: 24px; margin-top: 24px; border-block: 1px solid var(--vip-line); }
+.results > div { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.results span { font-size: 13px; color: var(--vip-muted); }
+.results strong { font-size: clamp(25px, 2.6vw, 34px); line-height: 1.3; font-weight: 650; letter-spacing: -.035em; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.results small { color: var(--vip-muted); font-size: 11px; }
+.total strong { color: var(--vip-gold); }
+.figure { margin: 23px 0 0; }
+.legend { display: flex; gap: 18px; align-items: center; font-size: 12px; color: var(--vip-muted); }
+.legend > span { display: flex; align-items: center; gap: 7px; }
+.legend > small { margin-left: auto; font-size: 11px; }
+.balanceKey, .principalKey { display: inline-block; width: 17px; height: 3px; background: var(--vip-gold); }
+.principalKey { height: 0; background: none; border-top: 2px dashed var(--vip-muted); }
+.chart { display: block; width: 100%; height: auto; max-height: 250px; margin-top: 14px; overflow: visible; }
+.gridline { stroke: var(--vip-line); stroke-width: 1; }
+.axis { fill: var(--vip-muted); font-size: 11px; font-family: inherit; }
+.principalLine, .balanceLine { fill: none; stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.principalLine { stroke: var(--vip-muted); stroke-dasharray: 5 5; stroke-width: 1.8; }
+.balanceLine { stroke: var(--vip-gold); }
+.endpoint { fill: var(--vip-gold); }
+.figure figcaption { margin-top: 8px; font-size: 12px; line-height: 1.8; color: var(--vip-muted); }
+.footer { display: flex; align-items: start; justify-content: space-between; gap: 20px; margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--vip-line); }
+.method { min-width: 0; }
+.method summary { width: fit-content; font-size: 12px; cursor: pointer; color: var(--vip-muted); }
+.method p { margin-top: 10px; color: var(--vip-muted); font-size: 12px; line-height: 1.9; max-width: 570px; }
+.footer > a { display: inline-flex; align-items: center; gap: 5px; color: var(--vip-gold); font-size: 12px; flex-shrink: 0; }
+@media (max-width: 767px) {
+  .calculator { padding: 20px; }
+  .heading { align-items: start; flex-direction: column; gap: 9px; }
+  .heading h3 { font-size: 20px; }
+  .unit { font-size: 11px; }
+  .fields { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 15px 12px; margin-top: 22px; }
+  .inputWrap { padding-right: 9px; }
+  .inputWrap input { padding: 11px 9px; font-size: 18px; }
+  .field label { font-size: 12px; }
+  .results { gap: 14px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .results .total { grid-column: 1 / -1; padding-top: 14px; border-top: 1px solid var(--vip-line); }
+  .results strong { font-size: 25px; }
+  .results .total strong { font-size: 32px; }
+  .results span { font-size: 12px; }
+  .results small { font-size: 10px; }
+  .legend { gap: 14px; font-size: 11px; }
+  .legend > small { font-size: 10px; }
+  .chart { min-height: 148px; }
+  .footer { flex-direction: column; gap: 15px; }
+}
+@media (min-width: 1024px) {
+  .calculator { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); column-gap: 32px; }
+  .heading { grid-column: 1 / -1; }
+  .fields { grid-column: 1; grid-row: 2; grid-template-columns: repeat(2, minmax(0, 1fr)); align-self: start; }
+  .bounds { grid-column: 1; grid-row: 3; align-self: start; }
+  .scenarios { grid-column: 1; grid-row: 4; align-self: end; margin-bottom: 12px; }
+  .scenarios > span { flex-basis: 100%; }
+  .results { grid-column: 2; grid-row: 2; align-self: start; gap: 14px; padding-block: 16px; }
+  .results strong { font-size: 27px; }
+  .results small { line-height: 1.8; }
+  .figure { grid-column: 2; grid-row: 3 / span 2; margin-top: 8px; }
+  .chart { max-height: 180px; }
+  .figure figcaption { font-size: 11px; }
+  .footer { grid-column: 1 / -1; }
+}
