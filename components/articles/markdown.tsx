@@ -10,6 +10,10 @@ const illustrationSizes: Record<string, { width: number; height: number }> = {
   "/images/articles/blackstone-ai-returns.webp": { width: 1600, height: 900 },
   "/images/articles/blackstone-ai-adoption.webp": { width: 1600, height: 900 },
   "/images/articles/blackstone-ai-research.webp": { width: 1600, height: 900 },
+  "/images/articles/nebius-ai-service.webp": { width: 1600, height: 900 },
+  "/images/articles/nebius-ai-value-chain.webp": { width: 1600, height: 900 },
+  "/images/articles/nebius-ai-cashflow.webp": { width: 1600, height: 900 },
+  "/images/articles/nebius-ai-execution.webp": { width: 1600, height: 900 },
 };
 
 // CommonMark leaves **中文。**后文 as plain text because punctuation touches
@@ -61,7 +65,7 @@ export function articleOutline(body: string) {
     return match ? [{ id: `section-${index + 1}`, title: match[1].replace(/[*_`]/g, "") }] : [];
   });
 }
-export function ArticleMarkdown({ body }: { body: string }) {
+export function ArticleMarkdown({ body, readingStyle }: { body: string; readingStyle?: "editorial" }) {
   return <ReactMarkdown remarkPlugins={[remarkGfm, remarkChineseStrong, remarkHeadingIds]} components={{
     h1: ({ node, ...props }) => <h2 {...props} />,
     p: ({ node, children, ...props }) => {
@@ -70,7 +74,10 @@ export function ArticleMarkdown({ body }: { body: string }) {
         const caption = child.properties.title;
         return <figure>{children}{typeof caption === "string" && <figcaption>{caption}</figcaption>}</figure>;
       }
-      return <p {...props}>{children}</p>;
+      const first = node?.children[0];
+      const metadata = readingStyle === "editorial" && first?.type === "text" && /^资料截至[:：]/.test(first.value);
+      const emphasis = readingStyle === "editorial" && child?.type === "element" && child.tagName === "strong";
+      return <p {...props} data-article-meta={metadata || undefined} data-article-emphasis={emphasis || undefined}>{children}</p>;
     },
     img: ({ node, ...props }) => <img {...props} {...(typeof props.src === "string" ? illustrationSizes[props.src] : {})} loading="lazy" decoding="async" />,
     table: ({ node, ...props }) => <div tabIndex={0} role="region" aria-label="文章数据表格"><table {...props} /></div>,

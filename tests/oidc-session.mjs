@@ -44,13 +44,15 @@ const app=spawn(process.execPath,['node_modules/next/dist/bin/next','start','--h
 const jar=new Map();
 async function request(url,{authenticated=true,headers={},signal}={}){const local=new URL(url).origin===base;const r=await fetch(url,{redirect:'manual',signal,headers:{...(local&&authenticated?{cookie:[...jar].map(([k,v])=>`${k}=${v}`).join('; ')}:{}),...headers}});if(local&&authenticated)for(const c of r.headers.getSetCookie()){const pair=c.split(';')[0],i=pair.indexOf('=');jar.set(pair.slice(0,i),pair.slice(i+1));}return r;}
 
-// These sentences occur near the end of each full article, outside its trial text.
+// Probe the full ending and, when supplied, the first paragraph after the trial.
 // Check both document HTML (including embedded Flight data) and standalone RSC.
 const researchArticles=[
  {slug:'Kcr8I81t',tail:'美联储会继续改变政策，市场也会继续改变预期。',preview:'今天想和大家认真聊一次美联储。'},
  {slug:'WGa8Mm2t',tail:'以上，就是目前我对于整个市场比较完整的一次思考，也算是 Wise VIP 的第一篇正式市场文章。',preview:'今天给大家推送一篇我们 VIP 体系正式上线之后的第一篇文章。'},
  {slug:'blackstone-ai-age-of-discovery',tail:'AI依然是我愿意持续投入研究、等待合适价格并承担风险的核心方向。',preview:'这两个案例分别对应降低已有业务成本，以及增加新收入。'},
+ {slug:'nebius-ai',tail:'若增长越来越依赖融资和增发，已有容量的回报却承压，我会下调判断。',preview:'但回到开头那家做 AI 客服的公司，它未必希望自己管理这些事情。',protectedStart:'如果团队只是想使用一个合适的模型，让它稳定回答问题，那么直接购买托管推理服务会更接近需求。',publicImages:['nebius-ai-service.webp'],protectedImages:['nebius-ai-value-chain.webp','nebius-ai-cashflow.webp','nebius-ai-execution.webp']},
 ];
+function protectedMarkers(article){return [article.protectedStart,article.tail,...(article.protectedImages??[])].filter(Boolean);}
 function decodeTransportText(text){
  const entities={amp:'&',lt:'<',gt:'>',quot:'"',apos:"'"};
  for(let i=0;i<4;i++)text=text
@@ -58,7 +60,10 @@ function decodeTransportText(text){
   .replace(/&#x([0-9a-f]+);/gi,(_,hex)=>String.fromCodePoint(parseInt(hex,16)))
   .replace(/&#(\d+);/g,(_,decimal)=>String.fromCodePoint(Number(decimal)))
   .replace(/&(amp|lt|gt|quot|apos);/g,(_,name)=>entities[name]);
- return text;
+ // Keep the complete transport for hidden Flight payloads and image references,
+ // plus readable HTML text so inline emphasis cannot hide a leaked sentence.
+ // Standalone RSC is still requested and checked independently below.
+ return text+'\n'+text.replace(/<\/?[A-Za-z][^>]*>/g,'');
 }
 function deferred(){let resolve;const promise=new Promise(done=>{resolve=done;});return {promise,resolve};}
 async function withWatchdog(promise,label){
@@ -84,7 +89,7 @@ async function assertPublicPagesAreShared(){
   assert.equal(await member.text(),html,`${path}: cached HTML must not depend on the visitor's identity`);
   assert.ok(html.includes('data-account-pending=""'),`${path}: neutral account placeholder`);
   assert.ok(!html.includes('QA Wise'),`${path}: no member identity in cached HTML`);
-  for(const article of researchArticles)assert.ok(!decodeTransportText(html).includes(article.tail),`${path}: shared cache excludes protected text`);
+  for(const article of researchArticles)for(const sentence of protectedMarkers(article))assert.ok(!decodeTransportText(html).includes(sentence),`${path}: shared cache excludes ${article.slug} protected text`);
  }
  const missing=await request(base+'/article/category/not-a-category',{authenticated:false});
  assert.equal(missing.status,404,'unknown static category must remain a real HTTP 404');
@@ -112,7 +117,7 @@ async function assertHomepageDoesNotWaitForAccount(){
   assert.ok(!html.includes('QA Wise'),'account identity is withheld until verification');
   assert.ok(!html.includes('aria-controls="wise-account-panel"'),'no premature member account control');
   assert.ok(!/href="\/auth\/login(?:\?|\")/.test(html),'pending account must not masquerade as a login button');
-  for(const article of researchArticles)assert.ok(!decodeTransportText(html).includes(article.tail),'public homepage never sends protected article text');
+  for(const article of researchArticles)for(const sentence of protectedMarkers(article))assert.ok(!decodeTransportText(html).includes(sentence),`public homepage never sends ${article.slug} protected text`);
   gate.release.resolve();
   const sessionResponse=await withWatchdog(sessionRequest,'verified session response');
   assert.match(sessionResponse.headers.get('cache-control')??'',/no-store/,'private session must never enter a shared cache');
@@ -137,7 +142,8 @@ async function assertResearchAccess(allowed,label,{authenticated=true}={}){
   if(transport==='RSC')assert.match(response.headers.get('content-type')??'',/text\/x-component/,`${label}: verify the actual Flight response`);
   const text=decodeTransportText(await response.text());
   assert.ok(text.includes(article.preview),`${label}: ${article.slug} must still render public content`);
-  assert.equal(text.includes(article.tail),allowed,`${label}: ${article.slug} full-text boundary in ${transport}`);
+  for(const image of article.publicImages??[])assert.ok(text.includes(image),`${label}: ${article.slug} trial illustration in ${transport}`);
+  for(const sentence of protectedMarkers(article))assert.equal(text.includes(sentence),allowed,`${label}: ${article.slug} protected marker ${sentence} in ${transport}`);
   assert.equal(text.includes('以上为公开试读。VIP 可阅读后续分析与完整结论'),!allowed,`${label}: ${article.slug} paywall in ${transport}`);
  }
  console.log(`PASS ${label}: ${researchArticles.length} research articles ${allowed?'include the full ending':'exclude protected text'} in HTML and RSC`);
@@ -161,7 +167,7 @@ try{
    }
   }
   const decoded=decodeTransportText(payload);
-  for(const article of researchArticles)assert.ok(!decoded.includes(article.tail),`unknown slug must exclude protected text in ${transport}`);
+  for(const article of researchArticles)for(const sentence of protectedMarkers(article))assert.ok(!decoded.includes(sentence),`unknown slug must exclude ${article.slug} protected text in ${transport}`);
  }
  console.log('PASS unknown research article: HTML HTTP 404 and RSC not-found boundary with no protected content');
  let r=await request(base+'/auth/login?callbackUrl=%2Fchat');assert.equal(r.status,303);

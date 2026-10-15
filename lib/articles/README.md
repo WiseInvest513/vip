@@ -43,3 +43,14 @@
 - 首图沿用 `/images/articles/blackstone-ai-cover.webp`。正文五图采用用户批准的米白、深蓝、香槟金立体风格，人物参与实际工作；右上角仅保留 WiseInvest 衬线字标，大写 W、I 为金色，其余字母为深蓝，不使用独立 WI 连字图标。五图均为通用概念示意，不是官方照片或数据图表。
 - 正文图均位于 `/images/articles/`：`blackstone-ai-commissioning.webp` 放在第三个重点后，`blackstone-ai-workflow.webp` 放在第五个重点后，`blackstone-ai-returns.webp` 放在第二节末尾，`blackstone-ai-adoption.webp` 放在第三节末尾，`blackstone-ai-research.webp` 放在第四节末尾。
 - 五张正文图压缩为 1600 × 900 WebP，质量 80，合计约 399 KiB；保留尺寸、延迟加载和原生图注。封面沿用现有资源与静态资源哈希缓存。生成及编辑记录见 `artwork/blackstone-ai-prompts.md`；第一张从批准参考图编辑定稿，其余四张保留实际生成提示词。
+
+## 2026-10-12 新增文章
+
+- `nebius-ai`：《看懂 NBIS：从 AI 算力到股东回报》，完整正文来自作者认可的 `drafts/NBIS公司深度解析-2026-10-12.txt`，存于 `nebius-ai.ts`。原题完整副标题保留在摘要中，「写在前面」与十一章保持十二个同级 Markdown 标题，原文措辞、财务数字和资料截止说明均保留。
+- 复用已有 `companies`（公司研究）分类，AI、科技与数据中心作为标签；45 分钟阅读，`vip` 全文，`sourceUrl` 留空。
+- 正文设置 `readingStyle: "editorial"`：每章选取 3–4 处短语加粗，共 40 处；八段作者解释使用引用块，均来自原文，不标注为公司引语；十二处较长段落在原有句号后增加换行。去除 Markdown 标记、图片及其说明并忽略空白后，与批准的原稿正文逐字相同，没有新增二级章节或重复财务表格。
+- 显式 `preview` 是正文的精确前缀，仍以「但回到开头那家做 AI 客服的公司，它未必希望自己管理这些事情。」这一完整段落结束。去掉 Markdown 标记、图片及其说明和空白后，试读为 5,233 / 17,793 个可见字符（约 29.41%）；保留空白计算也低于 30%。后续正文沿用服务端 VIP / VIP_PLUS 鉴权，不向客户端发送全文计算比例。
+- 封面路径为 `/images/articles/nebius-ai-cover.webp`，沿用既有文章封面与媒体映射机制。
+- 四张正文图均为编辑概念示意，不包含真实财务数据或收益承诺：第三章 `nebius-ai-service.webp` 解释计算环境与模型运行服务，位于公开试读中，仅呈现第一章已经介绍的产品边界；第四章 `nebius-ai-value-chain.webp` 解释上下游关系；第七章 `nebius-ai-cashflow.webp` 解释设备投入、履约与回款的时间差；第十章 `nebius-ai-execution.webp` 解释从签约到容量使用的不同阶段。路径均在 `/images/articles/` 下，通过 Markdown 图片 title 显示图注，后三图均位于付费正文内。
+
+- 同日按作者要求，在第十一章末尾补充一段投资态度引用块，明确文中固定价格下的等待倾向及上调/下调判断的条件；没有新增目标价、实时行情或持仓陈述。原有正文保留，新增结语后的纯文字副本为 `drafts/NBIS公司深度解析-2026-10-12-结语补充版.txt`。试读边界保持原完整段落；当前全文共九个引用块。

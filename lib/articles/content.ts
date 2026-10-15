@@ -1,11 +1,13 @@
 import "server-only";
 import type { ArticleContent } from "./types";
 import { blackstoneAiArticle } from "./blackstone-ai";
+import { nebiusAiArticle } from "./nebius-ai";
 
 // Migrated verbatim from MyBlog/content/articles/VIP on 2026-10-10.
 // Full text stays on the server. Trial text preserves the original complete-block
 // boundaries: VIP001 35%; VIP002 30% after its public release ended.
 export const articles: ArticleContent[] = [
+  nebiusAiArticle,
   blackstoneAiArticle,
   {
     "slug": "Kcr8I81t",

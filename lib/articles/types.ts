@@ -18,4 +18,5 @@ export type ArticlePreview = {
 export type ArticleContent = ArticlePreview & {
   body: string;
   preview: string;
+  readingStyle?: "editorial";
 };
