@@ -158,3 +158,5 @@
 .navigationStatus {position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 @media(min-width:761px) and (max-width:1150px){.header nav .navigationPending{bottom:4px}}
 @media(max-width:760px){.header nav .navigationPending{bottom:2px}}
+
+@media(max-width:760px){.headerTools{flex-wrap:wrap;max-width:100%;justify-content:flex-end}.header{row-gap:12px}.headerTools .mainSite{display:none}}
