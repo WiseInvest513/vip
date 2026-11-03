@@ -3,13 +3,12 @@ import Image, { type ImageProps } from "next/image";
 import Link from "next/link";
 import { ArrowRight, Crown } from "lucide-react";
 import { Motion } from "./motion";
-import { Footer } from "./shared";
 import vip from "@/app/vip/vip.module.css";
 import styles from "./join-frame.module.css";
 
 /** Shared pages use the same typography, buttons and surfaces as /join. */
 export function JoinFrame({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return <main className={`${vip.page} ${styles.page} ${className}`}><div className={styles.shell}><Motion>{children}</Motion><Footer /></div></main>;
+  return <main className={`${vip.page} ${styles.page} ${className}`}><div className={styles.shell}><Motion>{children}</Motion></div></main>;
 }
 
 export function JoinHero({ title, description, action, href, image, alt, secondary = false }: {

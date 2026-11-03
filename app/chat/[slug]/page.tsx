@@ -8,7 +8,6 @@ import { LockedArticle } from "@/components/curated/locked-article";
 import { canReadDiscussion, isFreeDiscussion } from "@/lib/auth/discussion-access";
 import { getContentViewerTier } from "@/lib/identity/content-viewer";
 import { AmbientSurface } from "../../vip/ambient-surface";
-import { Footer } from "@/components/portal/shared";
 import s from "@/components/portal/portal.module.css";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -55,6 +54,6 @@ export default async function Discussion({ params }: Props) {
         <Link href={`/login?callbackUrl=${encodeURIComponent(`/chat/${slug}`)}`}>已有会员？通过主站登录</Link>
       </div>}
       <p className={s.note}>此页为展示阅读流程的示例内容，不是实际群聊记录或投资建议。</p>
-    </article></AmbientSurface><Footer />
+    </article></AmbientSurface>
   </main>;
 }

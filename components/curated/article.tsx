@@ -3,7 +3,6 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight, ArrowUpRight, BookOpen, Clock3 } from "lucide-react";
 import type { CuratedDiscussion } from "@/lib/portal/curated-types";
 import { wiseVipIcon } from "@/lib/media/brand";
-import { Footer } from "@/components/portal/shared";
 import { AmbientSurface } from "@/app/vip/ambient-surface";
 import vip from "@/app/vip/vip.module.css";
 import { Practice } from "./practice";
@@ -79,7 +78,7 @@ export function CuratedArticle({ discussion, nextDiscussion, vipOnly }: { discus
         </article></AmbientSurface>
       </div>
       <Invitation />
-      <Footer />
+
     </div>
   </main>;
 }

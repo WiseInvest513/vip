@@ -2,7 +2,6 @@ import Link from 'next/link';
 import { ArrowRight, ArrowUpRight, Crown } from 'lucide-react';
 import { LandingExperience } from '@/app/vip/landing-experience';
 import { CommunityGallery } from '@/app/vip/community-gallery';
-import { Footer } from '@/components/portal/shared';
 import { Highlights } from '@/components/point/highlights';
 import { Tracker } from '@/components/point/tracker';
 import records from '@/lib/point/records.json';
@@ -56,6 +55,6 @@ export default function PointPage() {
         <div className={s.editorial}>{sectors.map(item=><article key={item.title} data-vip-reveal><div><h3>{item.title}</h3><div className={s.tags}>{item.tickers.map(t=><span key={t}>{t}</span>)}</div></div><div><p>{item.description}</p><blockquote>{item.quote}<small>Wise 原话 · {item.date} 北京时间</small></blockquote><p>{item.lesson}</p><Link href={item.href}>{item.link} <ArrowUpRight size={13}/></Link></div></article>)}</div>
       </section>
       <div className={s.closing}><div><h2>不只看结果，也读懂判断的过程。</h2><p>继续阅读精选讨论，或者和我们一起，把下一个问题聊透。</p></div><div className={vip.actions}><Link className={vip.primary} href="/chat">阅读精选讨论<ArrowRight size={16}/></Link><Link className={vip.secondary} href="/join">了解 VIP<ArrowUpRight size={15}/></Link></div></div>
-    </LandingExperience><div className={vip.shell}><div className={s.footerContent}><Footer/></div></div>
+    </LandingExperience>
   </main>;
 }

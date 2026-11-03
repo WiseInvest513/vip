@@ -2,7 +2,6 @@ import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, LockKeyhole } from "lucide-react";
 import type { DiscussionPreview } from "@/lib/portal/curated-types";
 import { AmbientSurface } from "@/app/vip/ambient-surface";
-import { Footer } from "@/components/portal/shared";
 import vip from "@/app/vip/vip.module.css";
 import s from "./curated.module.css";
 import a from "./reading.module.css";
@@ -29,6 +28,6 @@ export function LockedArticle({ preview, signedIn }: { preview: Pick<DiscussionP
         </aside>
       </div>
     </AmbientSurface>
-    <Footer />
+
   </div></main>;
 }

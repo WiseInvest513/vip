@@ -3,7 +3,6 @@ import Image from "next/image";
 import { ArrowRight, BookOpen } from "lucide-react";
 import { AmbientSurface } from "./vip/ambient-surface";
 import { Motion } from "@/components/portal/motion";
-import { Footer } from "@/components/portal/shared";
 import { curatedDiscussions } from "@/lib/portal/curated-discussions";
 import { principles } from "@/lib/portal/principles";
 import { resources } from "@/lib/portal/resources";
@@ -134,6 +133,6 @@ export default function Home() {
         </section>
       </AmbientSurface>
     </Motion>
-    <div className={s.container}><Footer /></div>
+
   </main>;
 }
