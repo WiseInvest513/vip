@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, BookOpen } from "lucide-react";
+import { ArrowRight, BookOpen, ChartNoAxesCombined } from "lucide-react";
 import { AmbientSurface } from "./vip/ambient-surface";
 import { Motion } from "@/components/portal/motion";
 import { curatedDiscussions } from "@/lib/portal/curated-discussions";
@@ -79,6 +79,14 @@ export default function Home() {
       </section>
 
       <div className={s.container}>
+        <Link href="/daily" className={s.dailyStrip}>
+          <span className={s.dailyIcon}><ChartNoAxesCombined size={22} aria-hidden="true" /></span>
+          <div className={s.dailyCopy}>
+            <div className={s.dailyTitle}><h2>市场观察</h2><span>周展望</span></div>
+            <p>每周前瞻、持续观察与接下来的重要安排。</p>
+          </div>
+          <span className={`${vip.textLink} ${s.dailyAction}`}>阅读本周展望<ArrowRight size={16} aria-hidden="true" /></span>
+        </Link>
         <section id="explore" className={s.section} aria-labelledby="explore-title">
           <p className={vip.eyebrow}>01 / 内容导航</p>
           <h2 id="explore-title" className={vip.sectionHeading}>读懂思考，回看判断，继续研究。</h2>
