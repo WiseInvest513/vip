@@ -11,6 +11,7 @@ Copy `.env.example` to `.env.local` and configure Wise ID credentials when testi
 ## Pages and content access
 
 - `/`: introduction to the VIP site.
+- `/daily`: weekly market observations, newest first. Stable links use `/daily?issue=weekly-YYYY-MM-DD`; publication dates and covered weeks are distinct. Follow `lib/daily/README.md` for weekly synchronization and checks.
 - `/chat`: ten curated principles and ten discussions. Visitors and ordinary members receive only the first five principles. VIP and VIP+ members receive all ten.
 - `/chat/[slug]`: the fixed free articles are `investment-principles`, `macro-observation`, `research-fewer-products`, `earnings-quality`, and `industry-read-through`. Other articles require VIP or VIP+. Lists and locked pages expose only public introductions; protected bodies stay on the server. Newly added articles are VIP-only unless explicitly added to `lib/auth/discussion-access.ts`.
 - `/learn`: public research tools, data websites and official sources.

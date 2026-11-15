@@ -1,0 +1,50 @@
+.calendar { margin-top: 4px; margin-bottom: 28px; scroll-margin-top: 100px; }
+.intro { display: flex; align-items: center; gap: 18px; margin-bottom: 16px; }
+.intro h2 { display: flex; align-items: center; gap: 8px; font-size: 17px; font-weight: 650; }
+.intro h2 svg { color: var(--vip-gold); }
+.intro p { color: var(--vip-muted); font-size: 12px; line-height: 1.8; }
+.panel { padding: 22px 24px 18px; border: 1px solid var(--vip-line); border-radius: 16px; background: var(--vip-bg); }
+.toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 22px; }
+.monthControls { display: flex; align-items: center; gap: 16px; }
+.monthControls > button { display: grid; place-items: center; width: 32px; height: 32px; border: 1px solid var(--vip-line); border-radius: 7px; }
+.monthControls > button:hover { color: var(--vip-gold); background: var(--vip-warm); }
+.monthControls select { min-height: 34px; max-width: 180px; font-size: 17px; font-weight: 650; color: var(--vip-text); border: 0; background: var(--vip-bg); cursor: pointer; }
+.monthControls select:focus-visible { outline: 2px solid var(--vip-gold); outline-offset: 4px; border-radius: 4px; }
+.monthStatus { display: flex; align-items: center; gap: 16px; color: var(--vip-muted); font-size: 11px; }
+.monthStatus button { color: var(--vip-gold); }
+.columns, .week { display: grid; grid-template-columns: 72px 160px minmax(0, 1fr) 80px; gap: 18px; align-items: center; }
+.columns { color: var(--vip-muted); font-size: 10px; padding: 0 16px 12px; }
+.weeks { display: grid; gap: 5px; }
+.week { padding: 16px; min-height: 61px; border: 1px solid transparent; border-radius: 9px; }
+.week[aria-current=page] { background: var(--vip-warm); border-color: var(--vip-gold-line); }
+@media (hover: hover) { a.week:hover { border-color: var(--vip-gold-line); background: var(--vip-warm); } }
+.weekNumber { font-size: 13px; font-weight: 650; }
+.weekDates { font-size: 12px; color: var(--vip-muted); font-variant-numeric: tabular-nums; }
+.title { font-size: 13px; line-height: 1.8; }
+.weekStatus { display: flex; align-items: center; justify-content: flex-end; gap: 8px; color: var(--vip-gold); font-size: 11px; white-space: nowrap; }
+.emptyWeek { color: var(--vip-muted); }
+.emptyWeek .title, .emptyWeek .weekStatus { color: var(--vip-muted); font-size: 12px; }
+.note { margin: 16px 16px 0; font-size: 10px; color: var(--vip-muted); line-height: 1.8; }
+@media (max-width: 1050px) {
+  .columns, .week { grid-template-columns: 64px 138px minmax(0, 1fr) 70px; gap: 12px; }
+}
+@media (max-width: 767px) {
+  .calendar { margin-bottom: 20px; scroll-margin-top: 150px; }
+  .intro { justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+  .intro h2 { font-size: 16px; }
+  .intro p { font-size: 11px; }
+  .panel { padding: 16px 10px; }
+  .toolbar { align-items: flex-start; flex-wrap: wrap; margin: 0 6px 16px; gap: 10px; }
+  .monthControls { width: 100%; justify-content: space-between; }
+  .monthStatus { width: 100%; justify-content: space-between; font-size: 10px; }
+  .columns { display: none; }
+  .week { grid-template-columns: auto minmax(0, 1fr) auto; gap: 8px 10px; padding: 13px 10px; min-height: 0; }
+  .weekNumber { font-size: 12px; }
+  .weekDates { font-size: 10px; }
+  .title { grid-row: 2; grid-column: 1 / -1; font-size: 12px; }
+  .weekStatus { grid-column: 3; grid-row: 1; font-size: 9px; gap: 4px; }
+  .weekStatus svg { width: 12px; }
+  .emptyWeek { row-gap: 6px; }
+  .emptyWeek .title { font-size: 11px; }
+  .note { margin: 14px 10px 0; }
+}

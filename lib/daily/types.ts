@@ -15,7 +15,7 @@ export type AgendaEvent = {
   label: string;
   title: string;
   detail: string;
-  /** Display time such as "11.10" or "本周内". Exact clock times stay unverified. */
+  /** Beijing time transcribed from the supplied issue, not a live calendar feed. */
   when?: string;
 };
 
@@ -40,6 +40,9 @@ export type DailyIssue = {
   /** Display date such as `2026.11.08`. */
   date: string;
   weekday?: string;
+  /** The covered trading week; separate from the publication day. */
+  periodStartISO?: string;
+  periodEndISO?: string;
   /** Weekly coverage window, e.g. `2026.11.09–11.13`. */
   periodLabel?: string;
   /** Demo scenario label only; omit on published issues. */
@@ -64,3 +67,8 @@ export type DailyIssue = {
   authorNote?: string;
   status: "published" | "demo";
 };
+
+/** Navigation needs metadata only, never every archived issue's body. */
+export type DailyIssueSummary = Pick<DailyIssue,
+  "id" | "kind" | "dateISO" | "date" | "weekday" | "periodStartISO" | "periodEndISO" | "periodLabel" | "title"
+>;

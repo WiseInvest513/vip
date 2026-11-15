@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -8,18 +8,16 @@ import {
   ArrowRight,
   ArrowUpRight,
   CalendarDays,
-  ChevronLeft,
-  ChevronRight,
   Clock3,
   Crown,
-  History,
   Minus,
   TrendingDown,
   TrendingUp,
 } from "lucide-react";
+import { IssueCalendar } from "./issue-calendar";
 import { AmbientSurface } from "@/app/vip/ambient-surface";
 import { wiseAvatar } from "@/lib/media/wise-avatar";
-import { getPublishedIssues, type DailyIssue, type MarketQuote } from "@/lib/daily";
+import type { DailyIssue, DailyIssueSummary, MarketQuote } from "@/lib/daily/types";
 import vip from "@/app/vip/vip.module.css";
 import s from "./overview.module.css";
 
@@ -57,7 +55,7 @@ function Quote({ quote }: { quote: MarketQuote }) {
   );
 }
 
-function kindLabel(issue: DailyIssue) {
+function kindLabel(issue: DailyIssueSummary) {
   return issue.kind === "weekly" ? "周展望" : "日报";
 }
 
@@ -67,13 +65,24 @@ function authorSubtitle(issue: DailyIssue) {
   return "市场观察 · Wise";
 }
 
-export function DailyOverview() {
-  const issues = useMemo(() => getPublishedIssues(), []);
-  const [index, setIndex] = useState(0);
+function issueHref(issue: DailyIssueSummary) {
+  return `/daily?issue=${encodeURIComponent(issue.id)}`;
+}
+
+function IssuePeriod({ issue }: { issue: DailyIssueSummary }) {
+  return issue.periodStartISO && issue.periodEndISO ? (
+    <span className={s.periodDate}>
+      <time dateTime={issue.periodStartISO}>{issue.periodStartISO.replaceAll("-", ".")}</time>
+      –<time dateTime={issue.periodEndISO}>{issue.periodEndISO.slice(0, 4) === issue.periodStartISO.slice(0, 4)
+        ? issue.periodEndISO.slice(5).replace("-", ".") : issue.periodEndISO.replaceAll("-", ".")}</time>
+    </span>
+  ) : <span className={s.periodDate}>{issue.periodLabel ?? issue.date}</span>;
+}
+
+export function DailyOverview({ issue, issues }: { issue?: DailyIssue; issues: DailyIssueSummary[] }) {
   const [period, setPeriod] = useState<"current" | "next">("current");
-  const issue = issues[index];
-  const hasQuotes = Boolean(issue.quotes && issue.quotes.length > 0);
-  const agenda = issue.agenda ?? { current: [], next: [] };
+  const hasQuotes = Boolean(issue?.quotes && issue.quotes.length > 0);
+  const agenda = issue?.agenda ?? { current: [], next: [] };
   const periodEvents = agenda[period];
 
   if (!issue) {
@@ -118,13 +127,15 @@ export function DailyOverview() {
         </a>
       </header>
 
+      <IssueCalendar issues={issues} selected={issue} />
+
       <div className={s.issueBar}>
         <div className={s.issueDate} aria-live="polite">
           {issue.kind === "weekly" && issue.periodLabel ? (
             <>
-              <time dateTime={issue.dateISO}>{issue.periodLabel}</time>
+              <IssuePeriod issue={issue} />
               <span className={s.kindBadge}>{kindLabel(issue)}</span>
-              <span>发布于 {issue.date}{issue.weekday ? ` · ${issue.weekday}` : ""}</span>
+              <span className={s.publicationDate}>发布于 <time dateTime={issue.dateISO}>{issue.date}</time>{issue.weekday ? ` · ${issue.weekday}` : ""}</span>
             </>
           ) : (
             <>
@@ -134,39 +145,6 @@ export function DailyOverview() {
             </>
           )}
         </div>
-        {issues.length > 1 ? (
-          <div className={s.issueControls}>
-            <button
-              type="button"
-              aria-label="查看较早一期"
-              disabled={index === issues.length - 1}
-              onClick={() => setIndex(index + 1)}
-            >
-              <ChevronLeft size={17} />
-            </button>
-            <label className={s.issueSelect}>
-              <History size={15} aria-hidden="true" />
-              <span className={s.srOnly}>选择观察期</span>
-              <select value={index} onChange={(e) => setIndex(Number(e.target.value))}>
-                {issues.map((item, i) => (
-                  <option key={item.id} value={i}>
-                    {item.kind === "weekly" && item.periodLabel
-                      ? `${item.periodLabel} · 周展望`
-                      : `${item.date} · ${kindLabel(item)}`}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <button
-              type="button"
-              aria-label="查看较新一期"
-              disabled={index === 0}
-              onClick={() => setIndex(index - 1)}
-            >
-              <ChevronRight size={17} />
-            </button>
-          </div>
-        ) : null}
       </div>
 
       {hasQuotes ? (
@@ -194,7 +172,7 @@ export function DailyOverview() {
         <section className={s.watchlist} aria-labelledby="watchlist-heading">
           <div className={s.sectionHead}>
             <h2 id="watchlist-heading">关注产品</h2>
-            <p>本周跟踪清单</p>
+            <p>本期跟踪清单</p>
           </div>
           <ul className={s.watchlistRows}>
             {issue.watchlist.map((item) => (
@@ -241,10 +219,10 @@ export function DailyOverview() {
               <p>{issue.watch}</p>
             </div>
             <div className={s.readingFooter}>
-              <span>每一期，保留当时的思考。</span>
+              <Link href={issueHref(issue)} className={vip.textLink} scroll={false}>本期固定链接<ArrowUpRight size={14} /></Link>
               {issues.length > 1 ? (
-                <a href="#past-issues" className={vip.textLink}>
-                  查看往期
+                <a href="#observation-calendar" className={vip.textLink}>
+                  返回观察周历
                   <ArrowRight size={14} />
                 </a>
               ) : (
@@ -263,16 +241,16 @@ export function DailyOverview() {
             <p className={s.agendaIntro}>留意事件发生的时间，也想清楚它会验证什么。</p>
             <div className={s.periods} role="group" aria-label="日程范围">
               <button type="button" aria-pressed={period === "current"} onClick={() => setPeriod("current")}>
-                本周
+                观察周
               </button>
               <button type="button" aria-pressed={period === "next"} onClick={() => setPeriod("next")}>
-                下周
+                后续安排
               </button>
             </div>
             <p className={s.agendaContext}>
               {issue.kind === "weekly" && issue.periodLabel
-                ? `${issue.periodLabel} · ${period === "current" ? "本周事件" : "后续安排"}`
-                : `${period === "current" ? "本周" : "下周"}安排`}
+                ? `${period === "current" ? issue.periodLabel : `基于 ${issue.date} 的展望`} · ${period === "current" ? "观察周事件" : "后续安排"}`
+                : `${period === "current" ? "本期" : "后续"}安排`}
             </p>
             <div className={s.events} aria-live="polite">
               {periodEvents.length === 0 ? (
@@ -281,8 +259,8 @@ export function DailyOverview() {
                     <CalendarDays size={14} aria-hidden="true" />
                     <span>待补充</span>
                   </div>
-                  <h3>日程确认后更新</h3>
-                  <p>具体时间以官方公告为准，确认后再写入这一栏。</p>
+                  <h3>本期未列出{period === "next" ? "后续" : "具体"}日程</h3>
+                  <p>后续观察会随新一期内容发布，可通过上方观察周历回看。</p>
                 </article>
               ) : (
                 periodEvents.map((event) => (
@@ -298,7 +276,7 @@ export function DailyOverview() {
                 ))
               )}
             </div>
-            <p className={s.agendaNote}>事件钟点未逐一核对处，均以官方日程为准；不把未核实的时间写成确定事实。</p>
+            <p className={s.agendaNote}>时间均为北京时间，按本期原文整理；如有调整，以官方公告为准。</p>
             <div className={s.research}>
               <p>具体企业与产业，继续深入看</p>
               <a href="https://chain.wise-invest.org/" target="_blank" rel="noopener noreferrer">
@@ -313,43 +291,6 @@ export function DailyOverview() {
           </aside>
         </div>
       </AmbientSurface>
-
-      {issues.length > 1 ? (
-        <section id="past-issues" className={s.archive} aria-labelledby="archive-heading">
-          <div className={s.sectionHead}>
-            <div>
-              <p className={vip.eyebrow}>往期观察</p>
-              <h2 id="archive-heading" className={vip.sectionHeading}>
-                把每周的思考，连起来看。
-              </h2>
-            </div>
-            <span className={s.archiveHint}>正式发布内容</span>
-          </div>
-          <div className={s.archiveRows}>
-            {issues.map((item, i) => (
-              <button
-                key={item.id}
-                type="button"
-                aria-pressed={index === i}
-                onClick={() => {
-                  setIndex(i);
-                  document.getElementById("wise-observation")?.scrollIntoView({
-                    behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
-                    block: "start",
-                  });
-                }}
-              >
-                <time dateTime={item.dateISO}>
-                  {item.kind === "weekly" && item.periodLabel ? item.periodLabel : item.date}
-                </time>
-                <strong>{item.title}</strong>
-                <span>{index === i ? "正在阅读" : kindLabel(item)}</span>
-                <ArrowUpRight size={16} aria-hidden="true" />
-              </button>
-            ))}
-          </div>
-        </section>
-      ) : null}
 
       <div className={s.bottomLinks}>
         <Link href="/" className={vip.textLink}>

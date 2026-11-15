@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "preview": "WISE_VIP_LOCAL_PREVIEW=1 next start --hostname 127.0.0.1 --port 3031",
+    "test:daily": "tsc lib/daily/issues.ts lib/daily/calendar.ts --outDir .auth-test/daily --module commonjs --target ES2022 --skipLibCheck && node --conditions=react-server --test tests/daily.cjs",
     "test:auth": "tsc lib/auth/wise-id.ts lib/auth/membership.ts lib/auth/principle-access.ts lib/auth/discussion-access.ts --outDir .auth-test --module commonjs --target ES2022 --skipLibCheck && node --test tests/auth.cjs",
     "test:auth:integration": "node tests/oidc-session.mjs",
     "test:articles": "tsc lib/auth/article-access.ts lib/auth/local-article-preview.ts lib/auth/membership.ts --outDir .auth-test --module commonjs --target ES2022 --skipLibCheck && node --test tests/article-access.cjs"
