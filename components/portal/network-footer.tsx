@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { wiseVipIcon } from "@/lib/media/brand";
 import s from "./network-footer.module.css";
+import { AttributedMainSiteLink } from "./attributed-main-site-link";
 
 const links = [
   [
@@ -81,10 +82,10 @@ export function Footer() {
         <div role="navigation" aria-label="关注 Wise">
           <h2 className={s.heading}>关注 Wise</h2>
           <ul className={s.links}>{socials.map(([icon, label, href]) => <li key={href}>
-            <a href={href} className={s.link} target="_blank" rel="noopener noreferrer">
+            <AttributedMainSiteLink href={href} className={s.link} target="_blank" rel="noopener noreferrer">
               <FooterIcon name={icon} /><span>{label}</span>
               <svg className={s.arrow} viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true"><path d="M4 12 12 4M4 4h8v8" /></svg>
-            </a>
+            </AttributedMainSiteLink>
           </li>)}</ul>
         </div>
       </div>

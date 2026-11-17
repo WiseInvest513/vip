@@ -15,8 +15,9 @@ import { CommunityGallery } from "./community-gallery";
 import { ServiceSymbol } from "./service-symbol";
 import { brokerageChannels, exchangeOrder, faqs, featuredArticle, introductionHref, joinSteps } from "./landing-content";
 import styles from "./vip.module.css";
+import { withMainSiteAttribution } from "@/lib/main-site-attribution";
 
-const mainSiteHref = (path: string) => new URL(path, "https://www.wise-invest.org").href;
+const mainSiteHref = (path: string) => withMainSiteAttribution(new URL(path, "https://www.wise-invest.org").href, "/vip");
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {

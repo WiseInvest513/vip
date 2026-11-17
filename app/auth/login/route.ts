@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth, signIn } from "@/auth";
 import { wiseAuth } from "@/lib/auth/settings";
 import { sanitizeLoginDestination } from "@/lib/auth/wise-id";
+import { mainSiteAuthorizationParams } from "@/lib/main-site-attribution";
 
 export const dynamic = "force-dynamic";
 
@@ -20,7 +21,7 @@ export async function GET(request: NextRequest) {
   try {
     const session = await auth();
     if (session?.user?.id) return redirect(new URL(destination, base));
-    const url = await signIn("wise", { redirect: false, redirectTo: destination });
+    const url = await signIn("wise", { redirect: false, redirectTo: destination }, mainSiteAuthorizationParams(destination));
     return redirect(url);
   } catch (error) {
     console.error("Wise ID login start failed:", error instanceof Error ? error.name : "UnknownError");
