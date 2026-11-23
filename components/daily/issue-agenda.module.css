@@ -1,0 +1,34 @@
+.agenda { border: 1px solid var(--vip-line); border-radius: 14px; background: var(--vip-bg); }
+.agenda summary { display: flex; align-items: center; gap: 15px; padding: 21px 26px; cursor: pointer; list-style: none; border-radius: 14px; }
+.agenda summary::-webkit-details-marker { display: none; }
+.agenda summary:hover { background: var(--vip-warm); }
+.icon { display: grid; place-items: center; width: 40px; height: 40px; flex-shrink: 0; border: 1px solid var(--vip-gold-line); border-radius: 10px; color: var(--vip-gold); background: var(--vip-warm); }
+.summaryCopy { min-width: 0; }
+.summaryCopy h2 { font-size: 16px; font-weight: 650; letter-spacing: -.02em; }
+.summaryCopy p { margin-top: 4px; font-size: 11px; color: var(--vip-muted); }
+.toggle { display: flex; align-items: center; gap: 8px; flex-shrink: 0; margin-left: auto; color: var(--vip-gold); font-size: 11px; }
+.openLabel { display: none; }
+.agenda[open] .closedLabel { display: none; }
+.agenda[open] .openLabel { display: inline; }
+.agenda[open] .toggle svg { transform: rotate(180deg); }
+.content { padding: 0 26px 22px; }
+.periods { display: flex; gap: 24px; border-bottom: 1px solid var(--vip-line); }
+.periods button { padding: 12px 0; font-size: 13px; color: var(--vip-muted); border-bottom: 2px solid transparent; }
+.periods button[aria-pressed=true] { color: var(--vip-gold); border-color: var(--vip-gold); font-weight: 650; }
+.events { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
+.events article { min-width: 0; padding: 18px; border: 1px solid var(--vip-line); border-radius: 10px; background: var(--vip-soft); }
+.label { font-size: 10px; font-weight: 600; color: var(--vip-gold); }
+.when { margin-top: 11px; font-size: 12px; color: var(--vip-muted); font-variant-numeric: tabular-nums; }
+.events h3 { margin-top: 6px; font-size: 14px; line-height: 1.7; font-weight: 650; }
+.detail { color: var(--vip-muted); font-size: 12px; line-height: 1.9; margin-top: 10px; }
+.note { margin-top: 16px; font-size: 10px; line-height: 1.8; color: var(--vip-muted); }
+.empty { grid-column: 1 / -1; padding-block: 8px; font-size: 13px; line-height: 1.9; color: var(--vip-muted); }
+@media (max-width: 767px) {
+  .agenda summary { gap: 10px; padding: 18px 16px; }
+  .icon { width: 33px; height: 33px; border-radius: 8px; }
+  .summaryCopy h2 { font-size: 14px; }
+  .summaryCopy p { font-size: 10px; }
+  .toggle > span { display: none !important; }
+  .content { padding: 0 16px 18px; }
+  .events { grid-template-columns: 1fr; }
+}

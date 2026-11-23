@@ -1,0 +1,58 @@
+.section { margin-top: 42px; }
+.section:first-child { margin-top: 0; }
+.heading { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 22px; padding-top: 26px; border-top: 1px solid var(--vip-line); }
+.heading > span { display: grid; place-items: center; flex-shrink: 0; width: 39px; height: 39px; border: 1px solid var(--vip-gold-line); border-radius: 10px; background: var(--vip-warm); color: var(--vip-gold); font-size: 16px; font-weight: 650; font-variant-numeric: tabular-nums; }
+.heading h4 { padding-top: 3px; font-size: 20px; font-weight: 650; line-height: 1.65; letter-spacing: -.025em; color: var(--vip-text); scroll-margin-top: 125px; }
+.body { display: grid; gap: 18px; }
+.body p { margin: 0; color: var(--vip-muted); font-size: 15px; line-height: 2; overflow-wrap: break-word; }
+.body strong { color: var(--vip-text); font-weight: 650; }
+.body .callout { padding: 18px 20px; border-left: 3px solid var(--vip-gold); border-radius: 0 10px 10px 0; background: var(--vip-warm); color: var(--vip-text); }
+.metrics { margin: 3px 0; padding: 20px 22px; border: 1px solid var(--vip-line); border-radius: 14px; background: var(--vip-soft); }
+.metrics figcaption { font-size: 11px; color: var(--vip-muted); }
+.metrics dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 17px; }
+.metrics dl > div { min-width: 0; }
+.metrics dl > div + div { padding-left: 22px; border-left: 1px solid var(--vip-line); }
+.metrics dt { font-size: 13px; font-weight: 550; color: var(--vip-text); }
+.metrics dd { display: flex; flex-wrap: wrap; align-items: baseline; gap: 5px 9px; margin-top: 6px; }
+.metrics dd strong { font-size: 30px; line-height: 1.3; font-weight: 650; letter-spacing: -.035em; font-variant-numeric: tabular-nums; }
+.metrics dd span { font-size: 10px; color: var(--vip-muted); }
+.events { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-block: 2px; }
+.card { min-width: 0; padding: 20px; border: 1px solid var(--vip-line); border-radius: 12px; background: var(--vip-bg); }
+.events .card { border-color: var(--vip-gold-line); background: var(--vip-warm); }
+.eventIcon { color: var(--vip-gold); margin-bottom: 14px; }
+.eventCopy > span, .eventCopy > strong { display: block; }
+.eventCopy .eventTime { color: var(--vip-gold); font-size: 11px; font-weight: 550; font-variant-numeric: tabular-nums; }
+.eventCopy .eventTitle { margin-top: 7px; font-size: 17px; line-height: 1.6; }
+.eventCopy .eventDetail { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--vip-gold-line); color: var(--vip-muted); font-size: 12px; line-height: 1.9; }
+.checklist { display: grid; gap: 0; border: 1px solid var(--vip-line); border-radius: 12px; overflow: hidden; }
+.checklist .card { display: grid; grid-template-columns: 82px minmax(0, 1fr); gap: 16px; align-items: baseline; border: 0; border-radius: 0; background: var(--vip-soft); }
+.checklist .card + .card { border-top: 1px solid var(--vip-line); }
+.cardLabel { display: flex; align-items: center; gap: 7px; font-size: 12px; line-height: 1.8; font-weight: 650; color: var(--vip-gold); }
+.cardLabel svg { flex-shrink: 0; }
+.checklist p { font-size: 14px; }
+.scenarios { display: grid; gap: 12px; }
+.scenarios .card { padding: 19px 20px; }
+.scenarios .card:first-child { background: var(--vip-warm); border-color: var(--vip-gold-line); }
+.scenarios .cardLabel { margin-bottom: 10px; }
+.scenarios p { font-size: 14px; }
+.srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (max-width: 767px) {
+  .section { margin-top: 34px; }
+  .heading { gap: 11px; padding-top: 24px; margin-bottom: 20px; }
+  .heading > span { width: 32px; height: 32px; font-size: 13px; border-radius: 8px; }
+  .heading h4 { font-size: 18px; padding-top: 0; }
+  .body { gap: 17px; }
+  .body .callout { padding: 16px; }
+  .metrics { padding: 17px 16px; }
+  .metrics dl > div + div { padding-left: 14px; }
+  .metrics dt { font-size: 11px; }
+  .metrics dd { display: grid; gap: 2px; }
+  .metrics dd strong { font-size: 27px; }
+  .events { grid-template-columns: 1fr; }
+  .card, .scenarios .card { padding: 17px; }
+  .eventIcon { margin-bottom: 9px; }
+  .eventCopy .eventTime { font-size: 12px; }
+  .eventCopy .eventTitle { font-size: 17px; }
+  .eventCopy .eventDetail { font-size: 13px; }
+  .checklist .card { grid-template-columns: 1fr; gap: 8px; }
+}

@@ -30,6 +30,22 @@ export type ContentSection = {
   /** Optional section label shown above the paragraphs. */
   heading?: string;
   body: string[];
+  /** Optional reading treatments. Paragraph indexes are zero-based; original copy stays in body. */
+  presentation?: {
+    emphasis?: string[];
+    callouts?: number[];
+    groups?: {
+      start: number;
+      count: number;
+      kind: "events" | "checklist" | "scenarios";
+      labels?: string[];
+    }[];
+    metrics?: {
+      afterParagraph: number;
+      caption: string;
+      items: { label: string; value: string; note: string }[];
+    };
+  };
 };
 
 export type DailyIssue = {

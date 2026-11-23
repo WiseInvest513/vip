@@ -1,20 +1,21 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowLeft,
   ArrowRight,
   ArrowUpRight,
-  CalendarDays,
   Clock3,
+  Compass,
   Crown,
   Minus,
   TrendingDown,
   TrendingUp,
 } from "lucide-react";
 import { IssueCalendar } from "./issue-calendar";
+import { IssueAgenda } from "./issue-agenda";
+import { ReadingSection } from "./reading-section";
 import { AmbientSurface } from "@/app/vip/ambient-surface";
 import { wiseAvatar } from "@/lib/media/wise-avatar";
 import type { DailyIssue, DailyIssueSummary, MarketQuote } from "@/lib/daily/types";
@@ -80,10 +81,7 @@ function IssuePeriod({ issue }: { issue: DailyIssueSummary }) {
 }
 
 export function DailyOverview({ issue, issues }: { issue?: DailyIssue; issues: DailyIssueSummary[] }) {
-  const [period, setPeriod] = useState<"current" | "next">("current");
   const hasQuotes = Boolean(issue?.quotes && issue.quotes.length > 0);
-  const agenda = issue?.agenda ?? { current: [], next: [] };
-  const periodEvents = agenda[period];
 
   if (!issue) {
     return (
@@ -188,6 +186,7 @@ export function DailyOverview({ issue, issues }: { issue?: DailyIssue; issues: D
 
       <AmbientSurface className={s.readingSurface}>
         <div className={s.readingGrid}>
+          <IssueAgenda issue={issue} />
           <section id="wise-observation" className={s.observation} aria-labelledby="observation-heading">
             <div className={s.author}>
               <Image src={wiseAvatar} alt="WiseInvest" width={44} height={44} sizes="44px" />
@@ -203,15 +202,14 @@ export function DailyOverview({ issue, issues }: { issue?: DailyIssue; issues: D
               {issue.kind === "weekly" ? "展望时间" : "观察时间"} {issue.opinionTime} · 北京时间
             </p>
             <h3 className={s.observationTitle}>{issue.title}</h3>
-            <p className={s.lead}>{issue.lead}</p>
+            <div className={s.lead}>
+              <span className={s.leadLabel}><Compass size={15} aria-hidden="true" />本期判断</span>
+              <p>{issue.lead}</p>
+            </div>
             <div className={s.prose}>
-              {issue.sections.map((section) => (
-                <div key={section.id} className={s.sectionBlock}>
-                  {section.heading ? <h4 className={s.sectionHeading}>{section.heading}</h4> : null}
-                  {section.body.map((paragraph, pi) => (
-                    <p key={`${section.id}-${pi}`}>{paragraph}</p>
-                  ))}
-                </div>
+              {issue.sections.map((section, index) => (
+                <ReadingSection key={section.id} section={section}
+                  number={section.heading ? issue.sections.slice(0, index + 1).filter(item => item.heading).length : undefined} />
               ))}
             </div>
             <div className={s.watch}>
@@ -231,64 +229,7 @@ export function DailyOverview({ issue, issues }: { issue?: DailyIssue; issues: D
             </div>
           </section>
 
-          <aside className={s.agenda} aria-labelledby="agenda-heading">
-            <p className={vip.eyebrow}>接下来的安排</p>
-            <h2 id="agenda-heading">
-              带着问题，
-              <br />
-              看下一次变化。
-            </h2>
-            <p className={s.agendaIntro}>留意事件发生的时间，也想清楚它会验证什么。</p>
-            <div className={s.periods} role="group" aria-label="日程范围">
-              <button type="button" aria-pressed={period === "current"} onClick={() => setPeriod("current")}>
-                观察周
-              </button>
-              <button type="button" aria-pressed={period === "next"} onClick={() => setPeriod("next")}>
-                后续安排
-              </button>
-            </div>
-            <p className={s.agendaContext}>
-              {issue.kind === "weekly" && issue.periodLabel
-                ? `${period === "current" ? issue.periodLabel : `基于 ${issue.date} 的展望`} · ${period === "current" ? "观察周事件" : "后续安排"}`
-                : `${period === "current" ? "本期" : "后续"}安排`}
-            </p>
-            <div className={s.events} aria-live="polite">
-              {periodEvents.length === 0 ? (
-                <article>
-                  <div className={s.eventMeta}>
-                    <CalendarDays size={14} aria-hidden="true" />
-                    <span>待补充</span>
-                  </div>
-                  <h3>本期未列出{period === "next" ? "后续" : "具体"}日程</h3>
-                  <p>后续观察会随新一期内容发布，可通过上方观察周历回看。</p>
-                </article>
-              ) : (
-                periodEvents.map((event) => (
-                  <article key={`${event.label}-${event.title}`}>
-                    <div className={s.eventMeta}>
-                      <CalendarDays size={14} aria-hidden="true" />
-                      <span>{event.label}</span>
-                      <span>{event.when ?? "以官方日程为准"}</span>
-                    </div>
-                    <h3>{event.title}</h3>
-                    <p>{event.detail}</p>
-                  </article>
-                ))
-              )}
-            </div>
-            <p className={s.agendaNote}>时间均为北京时间，按本期原文整理；如有调整，以官方公告为准。</p>
-            <div className={s.research}>
-              <p>具体企业与产业，继续深入看</p>
-              <a href="https://chain.wise-invest.org/" target="_blank" rel="noopener noreferrer">
-                美股与产业 · CHAIN
-                <ArrowUpRight size={14} />
-              </a>
-              <a href="https://crypto.wise-invest.org/" target="_blank" rel="noopener noreferrer">
-                加密市场 · Crypto
-                <ArrowUpRight size={14} />
-              </a>
-            </div>
-          </aside>
+
         </div>
       </AmbientSurface>
 
