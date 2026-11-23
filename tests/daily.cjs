@@ -5,12 +5,15 @@ const { getCalendarWeeks, getArchiveMonths, shiftMonth } = require("../.auth-tes
 
 test("November weekly calendar assigns observations to their covered week", () => {
   const weeks = getCalendarWeeks("2026-11", getPublishedIssues());
-  assert.equal(weeks.filter(week => week.issue).length, 2);
+  assert.equal(weeks.filter(week => week.issue).length, 3);
   assert.equal(weeks[2].issue.id, "weekly-2026-11-16");
   assert.equal(weeks.length, 5);
   assert.equal(weeks[2].label, "第 3 周");
   assert.equal(weeks[2].startISO, "2026-11-16");
   assert.equal(weeks[2].endISO, "2026-11-20");
+  assert.equal(weeks[3].issue.id, "weekly-2026-11-23");
+  assert.equal(weeks[3].label, "第 4 周");
+  assert.equal(weeks[3].endISO, "2026-11-27");
   assert.equal(weeks[0].issue, undefined);
 });
 
